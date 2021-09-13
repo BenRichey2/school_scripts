@@ -37,6 +37,15 @@ import matplotlib # Tool to visualize run-time analysis
 # debug
 import ipdb
 
+class Pokemon:
+    """
+        A data structure to represent each pokemon being sorted.
+    """
+
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
 class Sortalyzer():
     """
         Sortalyzer class performs run-time analysis on insertion sort, quick sort, and merge sort
@@ -47,13 +56,14 @@ class Sortalyzer():
     """
 
     def __init__(self):
+        self.runtime_data = {}
         self.parse_arguments()
         # Load in data to sort
         self.load_data()
         # Run sorts on each data set
-        self.insertion_sort()
-        self.quick_sort()
-        self.merge_sort()
+        self.insertion_sort_engine()
+        self.quick_sort_engine()
+        self.merge_sort_engine()
         # Graph run-time data
         self.visualize_results()
 
@@ -83,24 +93,41 @@ class Sortalyzer():
                                 if row[0].startswith("Pokemon"):
                                     continue
                                 else:
-                                    data_list.append(ast.literal_eval(row[1]))
+                                    pkmn = Pokemon(row[0], ast.literal_eval(row[1]))
+                                    data_list.append(pkmn)
                             self.data_sets[f] = data_list
         except (OSError, IOError, ValueError) as err:
             print("Error: " + err)
             sys.exit()
 
-    def insertion_sort(self):
-        self.insertion_sort_count = 1
+    def insertion_sort_engine(self):
+        data = {}
+        for filename, pokemons in self.data_sets.items():
+            data[filename] = self.insertion_sort(pokemons)
+        self.runtime_data["insertion sort"] = data
+
+    def insertion_sort(self, data):
+        count = 0
+        for j in range(1, len(data)):
+            count += 1
+            key = data[j]
+            i = j - 1
+            while (i > 0) and (data[i].score > key.score):
+                count += 1
+                data[i + 1] = data[i]
+                i = i - 1
+            data[i + 1] = key
+        return count
+
+    def quick_sort_engine(self):
         #TODO
         pass
 
-    def quick_sort(self):
-        self.quick_sort_count = 1
+    def merge_sort_engine(self):
         #TODO
         pass
 
-    def merge_sort(self):
-        self.merge_sort_count = 1
+    def visualize_results(self):
         #TODO
         pass
 
