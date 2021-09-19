@@ -27,6 +27,8 @@
 # std libs
 import os
 import sys
+import math
+import copy
 import argparse
 import ast
 import csv
@@ -55,6 +57,8 @@ class Sortalyzer():
         each algorithm for comparison.
     """
 
+    #TODO: write method to confirm all lists were sorted correctly
+
     def __init__(self):
         self.runtime_data = {}
         self.parse_arguments()
@@ -62,8 +66,10 @@ class Sortalyzer():
         self.load_data()
         # Run sorts on each data set
         self.insertion_sort_engine()
-        self.quick_sort_engine()
         self.merge_sort_engine()
+        self.quick_sort_engine()
+        # Confirm sorting is correct
+        self.compare_sorted_data_sets()
         # Graph run-time data
         self.visualize_results()
 
@@ -80,13 +86,17 @@ class Sortalyzer():
 
     def load_data(self):
         self.data_sets = {}
-        try:
+        self.data_sets["insertion"] = {}
+        self.data_sets["merge"] = {}
+        self.data_sets["quick"] = {}
+        data = {}
+        try: # Read the data from disk
             for (root, dirs, files) in os.walk(self.data_path, topdown=True):
                 for f in files:
                     if f == "pokemonIndex.csv":
                         continue
                     else:
-                        data_list = []
+                        data[f] = []
                         with open(os.path.join(root, f)) as csvfile:
                             csv_reader = csv.reader(csvfile)
                             for row in csv_reader:
@@ -94,17 +104,34 @@ class Sortalyzer():
                                     continue
                                 else:
                                     pkmn = Pokemon(row[0], ast.literal_eval(row[1]))
-                                    data_list.append(pkmn)
-                            self.data_sets[f] = data_list
+                                    data[f].append(pkmn)
         except (OSError, IOError, ValueError) as err:
             print("Error: " + err)
             sys.exit()
+        # Make copies of the data for each algorithm
+        for algorithm in self.data_sets.keys():
+            self.data_sets[algorithm] = copy.deepcopy(data)
 
     def insertion_sort_engine(self):
         data = {}
-        for filename, pokemons in self.data_sets.items():
+        for filename, pokemons in self.data_sets["insertion"].items():
             data[filename] = self.insertion_sort(pokemons)
-        self.runtime_data["insertion sort"] = data
+        self.runtime_data["insertion"] = data
+
+    def merge_sort_engine(self):
+        data = {}
+        for filename, pokemons in self.data_sets["merge"].items():
+            self.merge_count = 0
+            back = len(pokemons) - 1
+            self.merge_sort(pokemons, 0, back)
+            data[filename] = self.merge_count
+        self.runtime_data["merge"] = data
+
+    def quick_sort_engine(self):
+        data = {}
+        for filename, pokemons in self.data_sets["quick"].items():
+            data[filename] = self.quick_sort(pokemons)
+        self.runtime_data["quick"] = data
 
     def insertion_sort(self, data):
         count = 0
@@ -112,20 +139,59 @@ class Sortalyzer():
             count += 1
             key = data[j]
             i = j - 1
-            while (i > 0) and (data[i].score > key.score):
+            while (i >= 0) and (data[i].score > key.score):
                 count += 1
                 data[i + 1] = data[i]
-                i = i - 1
+                i -= 1
             data[i + 1] = key
         return count
 
-    def quick_sort_engine(self):
-        #TODO
-        pass
+    def merge_sort(self, data, front, back):
+        if front < back:
+            middle = math.floor((front + back) / 2)
+            self.merge_sort(data, front, middle)
+            self.merge_sort(data, middle + 1, back)
+            self.merge(data, front, middle, back)
 
-    def merge_sort_engine(self):
+    def merge(self, data, front, middle, back):
+        left = []
+        for idx in range(0, middle - front + 1):
+            left.append(data[front + idx])
+        left.append(Pokemon("End of List", math.inf))
+        right = []
+        for idx in range(0, (back - middle)):
+            right.append(data[middle + idx + 1])
+        right.append(Pokemon("End of List", math.inf))
+        i = 0
+        j = 0
+        for k in range(front, back + 1):
+            self.merge_count += 1
+            if left[i].score <= right[j].score:
+                data[k] = left[i]
+                i += 1
+            else:
+                data[k] = right[j]
+                j += 1
+
+    def quick_sort(self, data):
         #TODO
-        pass
+        return 0
+
+    def compare_sorted_data_sets(self):
+        for filename in self.data_sets['insertion'].keys():
+            l1 = self.data_sets['insertion'][filename]
+            l2 = self.data_sets['merge'][filename]
+            self.compare_lists(l1, l2, filename)
+
+    def compare_lists(self, l1, l2, filename):
+        if len(l1) != len(l2):
+            print("ERROR: sorted lists for {} not equal. Unequal length.".format(filename))
+            return
+        for idx in range(0, len(l1)):
+            if (l1[idx].name == l2[idx].name) and (l1[idx].score == l2[idx].score):
+                continue
+            else:
+                print("ERROR: sorted lists for {} not equal. Different ordering.".format(filename))
 
     def visualize_results(self):
         #TODO
