@@ -55,7 +55,7 @@ class Pokemon:
         return (self < other) or (self.score == other.score)
 
     def __eq__(self, other):
-        return (self.name == other.name) and (self.score == other.score)
+        return (self.score == other.score)
 
     def __gt__(self, other):
         return self.score > other.score
@@ -78,6 +78,7 @@ class Sortalyzer():
         self.insertion_sort_engine()
         self.merge_sort_engine()
         self.quick_sort_engine()
+        ipdb.set_trace()
         # Confirm sorting is correct
         self.confirm_correct_output()
         # Graph run-time data
@@ -141,7 +142,9 @@ class Sortalyzer():
     def quick_sort_engine(self):
         data = {}
         for filename, pokemons in self.data_sets["quick"].items():
-            data[filename] = self.quick_sort(pokemons)
+            self.quick_count = 0
+            self.quick_sort(pokemons, 0, len(pokemons) - 1)
+            data[filename] = self.quick_count
         self.runtime_data["quick"] = data
 
     def insertion_sort(self, data):
@@ -184,9 +187,26 @@ class Sortalyzer():
                 data[k] = right[j]
                 j += 1
 
-    def quick_sort(self, data):
-        #TODO
-        return 0
+    def quick_sort(self, data, front, back):
+        if front < back:
+            middle = self.partition(data, front, back)
+            self.quick_sort(data, front, middle - 1)
+            self.quick_sort(data, middle + 1, back)
+
+    def partition(self, data, front, back):
+        pivot = data[front]
+        i = front + 1
+        for j in range(front + 1, back + 1):
+            self.quick_count += 1
+            if data[j] <= pivot:
+                tmp = data[i]
+                data[i] = data[j]
+                data[j] = tmp
+                i += 1
+        tmp = data[i-1]
+        data[i-1] = data[front]
+        data[front] = tmp
+        return i - 1
 
     def confirm_correct_output(self):
         # Sort the list of pokemon using pythons native method
@@ -196,19 +216,22 @@ class Sortalyzer():
         for filename in self.data_sets["insertion"].keys():
             l1 = self.data_sets["insertion"][filename]
             l2 = self.data_sets["merge"][filename]
-            l3 = self.data_sets["correct"][filename]
-            self.compare_lists(l1, l2, l3, filename)
+            l3 = self.data_sets["quick"][filename]
+            l4 = self.data_sets["correct"][filename]
+            self.compare_lists(l1, l2, l3, l4, filename)
 
-    def compare_lists(self, l1, l2, l3, filename):
-        # Compare 3 lists
-        if len(l1) != len(l2) or len(l2) != len(l3):
+    def compare_lists(self, l1, l2, l3, l4, filename):
+        # Compare 4 lists
+        if len(l1) != len(l2) or len(l2) != len(l3) or len(l3) != len(l4):
             print("ERROR: sorted lists for {} not equal. Unequal length.".format(filename))
-            return
+            return False
         for idx in range(0, len(l1)):
-            if (l1[idx] == l2[idx]) and (l2[idx] == l3[idx]):
+            if (l1[idx] == l2[idx]) and (l2[idx] == l3[idx]) and (l3[idx] == l4[idx]):
                 continue
             else:
                 print("ERROR: sorted lists for {} not equal. Different ordering.".format(filename))
+                return False
+        return True
 
     def visualize_results(self):
         #TODO
