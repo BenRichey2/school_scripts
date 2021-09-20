@@ -48,6 +48,18 @@ class Pokemon:
         self.name = name
         self.score = score
 
+    def __lt__(self, other):
+        return self.score < other.score
+
+    def __le__(self, other):
+        return (self < other) or (self.score == other.score)
+
+    def __eq__(self, other):
+        return (self.name == other.name) and (self.score == other.score)
+
+    def __gt__(self, other):
+        return self.score > other.score
+
 class Sortalyzer():
     """
         Sortalyzer class performs run-time analysis on insertion sort, quick sort, and merge sort
@@ -56,8 +68,6 @@ class Sortalyzer():
         sorted, and random). Then, a graph will be generated which vizualizes the efficiency of 
         each algorithm for comparison.
     """
-
-    #TODO: write method to confirm all lists were sorted correctly
 
     def __init__(self):
         self.runtime_data = {}
@@ -69,7 +79,7 @@ class Sortalyzer():
         self.merge_sort_engine()
         self.quick_sort_engine()
         # Confirm sorting is correct
-        self.compare_sorted_data_sets()
+        self.confirm_correct_output()
         # Graph run-time data
         self.visualize_results()
 
@@ -89,6 +99,7 @@ class Sortalyzer():
         self.data_sets["insertion"] = {}
         self.data_sets["merge"] = {}
         self.data_sets["quick"] = {}
+        self.data_sets["correct"] = {} # Clean copy used to confirm lists are sorted correctly
         data = {}
         try: # Read the data from disk
             for (root, dirs, files) in os.walk(self.data_path, topdown=True):
@@ -139,7 +150,7 @@ class Sortalyzer():
             count += 1
             key = data[j]
             i = j - 1
-            while (i >= 0) and (data[i].score > key.score):
+            while (i >= 0) and (data[i] > key):
                 count += 1
                 data[i + 1] = data[i]
                 i -= 1
@@ -166,7 +177,7 @@ class Sortalyzer():
         j = 0
         for k in range(front, back + 1):
             self.merge_count += 1
-            if left[i].score <= right[j].score:
+            if left[i] <= right[j]:
                 data[k] = left[i]
                 i += 1
             else:
@@ -177,18 +188,24 @@ class Sortalyzer():
         #TODO
         return 0
 
-    def compare_sorted_data_sets(self):
-        for filename in self.data_sets['insertion'].keys():
-            l1 = self.data_sets['insertion'][filename]
-            l2 = self.data_sets['merge'][filename]
-            self.compare_lists(l1, l2, filename)
+    def confirm_correct_output(self):
+        # Sort the list of pokemon using pythons native method
+        for filename, pokelist in self.data_sets["correct"].items():
+            pokelist.sort()
+        # Compare output from my sorting algorithms to python's
+        for filename in self.data_sets["insertion"].keys():
+            l1 = self.data_sets["insertion"][filename]
+            l2 = self.data_sets["merge"][filename]
+            l3 = self.data_sets["correct"][filename]
+            self.compare_lists(l1, l2, l3, filename)
 
-    def compare_lists(self, l1, l2, filename):
-        if len(l1) != len(l2):
+    def compare_lists(self, l1, l2, l3, filename):
+        # Compare 3 lists
+        if len(l1) != len(l2) or len(l2) != len(l3):
             print("ERROR: sorted lists for {} not equal. Unequal length.".format(filename))
             return
         for idx in range(0, len(l1)):
-            if (l1[idx].name == l2[idx].name) and (l1[idx].score == l2[idx].score):
+            if (l1[idx] == l2[idx]) and (l2[idx] == l3[idx]):
                 continue
             else:
                 print("ERROR: sorted lists for {} not equal. Different ordering.".format(filename))
