@@ -4,8 +4,8 @@
 
     The following program instantiates the Sortalyzer class which performs a run-time analysis
     on three sorting algorithms: insertion sort, quick sort, and merge sort. This run-time
-    analysis is performed by counting the number of comparisons done by each algorithm. The
-    class also visualizes this run-time analysis via the matplotlib library.
+    analysis is performed by counting the number of comparisons done by each algorithm. The run-time
+    data is then printed to stdout.
 
     MIT License:
 
@@ -32,9 +32,7 @@ import copy
 import argparse
 import ast
 import csv
-
-# 3rd party libs
-import matplotlib # Tool to visualize run-time analysis
+import yaml
 
 # debug
 import ipdb
@@ -65,8 +63,7 @@ class Sortalyzer():
         Sortalyzer class performs run-time analysis on insertion sort, quick sort, and merge sort
         algorithms by counting number of comparisons performed. Each of these algorithms will be
         tested against several different data sets in different sorted orders (sorted, reverse
-        sorted, and random). Then, a graph will be generated which vizualizes the efficiency of 
-        each algorithm for comparison.
+        sorted, and random). Then, the runtime data is printed to stdout.
     """
 
     def __init__(self):
@@ -78,11 +75,10 @@ class Sortalyzer():
         self.insertion_sort_engine()
         self.merge_sort_engine()
         self.quick_sort_engine()
-        ipdb.set_trace()
         # Confirm sorting is correct
         self.confirm_correct_output()
         # Graph run-time data
-        self.visualize_results()
+        self.dump_results()
 
     def parse_arguments(self):
         parser = argparse.ArgumentParser(description="Perform run-time analysis on three " +
@@ -96,6 +92,7 @@ class Sortalyzer():
         self.data_path = args.data_path
 
     def load_data(self):
+        # NOTE: assumes the only files in the data directory are the pokemon .csv files to be sorted
         self.data_sets = {}
         self.data_sets["insertion"] = {}
         self.data_sets["merge"] = {}
@@ -233,9 +230,13 @@ class Sortalyzer():
                 return False
         return True
 
-    def visualize_results(self):
-        #TODO
-        pass
+    def dump_results(self):
+        print("\n---------------------------------------------------------------------")
+        print("| Run-time Analysis for Insertion, Merge, and Quick Sort Algorithms |")
+        print("---------------------------------------------------------------------\n")
+        yaml.dump(self.runtime_data, sys.stdout)
+        print("---------------------------------------------------------------------\n")
+
 
 if __name__ == "__main__":
     # instantiate object & perform analysis
