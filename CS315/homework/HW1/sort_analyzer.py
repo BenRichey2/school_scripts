@@ -5,7 +5,8 @@
     The following program instantiates the Sortalyzer class which performs a run-time analysis
     on three sorting algorithms: insertion sort, quick sort, and merge sort. This run-time
     analysis is performed by counting the number of comparisons done by each algorithm. The run-time
-    data is then printed to stdout.
+    data is then printed to stdout, and the sorted lists are saved in a file called
+    "sorted_pokemon.yaml" saved to the directory in which this script was invoked.
 
     MIT License:
 
@@ -63,7 +64,9 @@ class Sortalyzer():
         Sortalyzer class performs run-time analysis on insertion sort, quick sort, and merge sort
         algorithms by counting number of comparisons performed. Each of these algorithms will be
         tested against several different data sets in different sorted orders (sorted, reverse
-        sorted, and random). Then, the runtime data is printed to stdout.
+        sorted, and random). Then, the runtime data is printed to stdout, and the sorted lists are
+        saved in a file called "sorted_pokemon.yaml" saved to the directory in which this script
+        was invoked.
     """
 
     def __init__(self):
@@ -231,10 +234,19 @@ class Sortalyzer():
         return True
 
     def dump_results(self):
+        self.data_sets.pop("correct")
+        try:
+            with open(os.path.join(os.getcwd(), "sorted_pokemon.yaml"), "w+") as output:
+                yaml.dump(self.data_sets, output)
+
+        except (IOError, OSError) as err:
+            print("Error encountered when saving sorted data to disk: {}".format(err))
         print("\n---------------------------------------------------------------------")
         print("| Run-time Analysis for Insertion, Merge, and Quick Sort Algorithms |")
         print("---------------------------------------------------------------------\n")
         yaml.dump(self.runtime_data, sys.stdout)
+        print("\n---------------------------------------------------------------------")
+        print("Sorted Pokemon saved to \"./sorted_pokemon.yaml\"")
         print("---------------------------------------------------------------------\n")
 
 
