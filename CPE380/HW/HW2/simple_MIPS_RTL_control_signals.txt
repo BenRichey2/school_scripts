@@ -39,6 +39,15 @@ Jz:
   CONST(0), ALUor, Zin
   SELrs, REGout, PCinif0, JUMP(Start)
 
+Xchg:
+  IRimmedout, Yin
+  SELrs, REGout, ALUadd, Zin
+  Zout, MARin, MEMread
+  UNTILmfc
+  MDRout, Yin
+  SELrt, REGout, MDRin, MEMwrite
+  Yout, SELrt, REGin, JUMP(Start)
+
 MEM[0]=op(2)+rs(9)+rt(10) /*jump to MEM[8]*/
 MEM[4]=0                  /*never reached*/
 MEM[8]=op(2)+rs(7)+rt(8)  /*failed jump*/
