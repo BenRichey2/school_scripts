@@ -9,10 +9,10 @@ h1 {
     color: rgb(255,238,230);
     background-image: url(../images/background.jpg);
     background-repeat: repeat-x;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin: 0px;
     padding-top: 30px;
     padding-bottom: 30px;
+    height: 100px;
 }
 cite, figcaption {
     font-size: 12pt;
@@ -57,4 +57,8 @@ h4, hr {
 }
 #headshot {
     width: 300px;
+}
+#profilePic {
+    margin-top: 0px;
+    padding: 0px;
 }
