@@ -70,6 +70,8 @@ legend {
     font-size: 16pt;
     color: rgb(102,179,255);
 }
+.page {
+}
 .pageHeader {
     font-size: 24pt;
     color: rgb(247,255,204);
@@ -100,7 +102,7 @@ legend {
     padding: 10px;
 }
 #headshot {
-    width: 200px;
+    width: 10%;
 }
 #profilePic {
     margin-top: 0px;

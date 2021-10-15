@@ -1,0 +1,23 @@
+html {
+    background-color: rgb(85,85,85);
+    font-family: 'Courier New', monospace;
+    font-size: 14pt;
+}
+h1 {
+    font-family: Arial, sans-serif;
+    font-size: 36pt;
+    color: rgb(255,238,230);
+    background-image: url(../images/background.jpg);
+    background-repeat: repeat-x;
+    margin: 0px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    height: 40px;
+}
+cite, figcaption {
+    font-size: 12pt;
+}
+nav > a {
+    font-size: 28pt;
+    color: rgb(102,179,255);
+}

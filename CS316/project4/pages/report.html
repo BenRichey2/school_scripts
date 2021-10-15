@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Ben Richey</title>
+        <!-- <link rel="stylesheet" href="../styles/stylesheet.css"/> -->
+    </head>
+    <body>
+        <header>
+            <h1>Ben Richey</h1>
+            <figure id="profilePic">
+                <img id="headshot" src="../images/headshot.PNG" alt="A picture of myself" title="Ben Richey Headshot"
+                />
+                <figcaption>
+                    <cite>Photo by <a href="https://www.morgansnellingsphotography.com">
+                            Morgan Snellings</a>. Instagram:
+                        <a href="https://www.instagram.com/morgansnellingsphotography">
+                        @morgansnellingsphotography</a></cite>
+                </figcaption>
+            </figure>
+        </header>
+        <main>
+            <nav>
+                <a href="./ben-richey.html"><strong>Home</strong></a>
+                <a href="./resume.html"><strong>My Resume</strong></a>
+                <a href="./myWork.html"><strong>My Work</strong></a>
+                <a href="./myInterests.html"><strong>My Interests</strong></a>
+                <a href="./contact.html"><strong>Contact Me!</strong></a>
+                <a href="./theOfficeQuote.html"><strong>The Office Quote of the Day</strong></a>
+                <a href="./restaurantReviews.html"><strong>Restuarant Reviews</strong></a>
+                <a href="./report.html"><strong>Report Bugs or Feature Requests</strong></a>
+            </nav>
+            <section class="content">
+                <h2 class="contentHeader">Report Bugs or Feature Requests</h2>
+                <form method="post" action="http://examples.funwebdev.com/process.php">
+                    <fieldset>
+                    <p>You may provide your contact information if you wish to be contacted back
+                       about this bug/feature's status</p>
+                    <legend>Your Contact Info</legend>
+                    <br>
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="John Doe"/><br>
+                    <label>Phone Number</label>
+                    <input type="tel" name="phoneNumber" placeholder="###-###-####"
+                           pattern="[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]"/><br>
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="john.doe@gmail.com"/><br>
+                    <input type="submit"/>
+                    <input type="reset"/>
+                    </fieldset>
+                    <hr>
+                </form>
+                <form method="post" action="http://examples.funwebdev.com/process.php">
+                    <fieldset>
+                    <legend>Bug Report or Feature Request?</legend>
+                    <p>
+                    <input id="requestType1" type="radio" name="requestType" value="bug"
+                           required>Bug Report
+                    <input id="requestType2" type="radio" name="requestType" value="feature"
+                           required>Feature Request
+                    </p>
+                    <label for="report">Enter Report/Request Here</label><br>
+                    <textarea id="report" name="request" rows="8" cols="100"
+                              required></textarea><br>
+                    <input type="submit"/>
+                    <input type="reset"/>
+                    </fieldset>
+                    <hr>
+                </form>
+                <form method="post" action="http://examples.funwebdev.com/process.php">
+                    <fieldset>
+                    <legend>Please Take a Moment to Rate this Website</legend>
+                    <br>
+                    <label for="aesetheticAppeal">Please rate this website for aesthetic appeal
+                    </label>
+                    <select id="aesetheticAppeal" name="aestheticAppeal">
+                        <optgroup label="Terrible">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                        </optgroup>
+                        <optgroup label="Mediocre">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </optgroup>
+                        <optgroup label="Great!">
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </optgroup>
+                    </select>
+                    <br>
+                    <label for="logic">Is this website easy to use?</label>
+                    <select id="logic" name="logic">
+                        <optgroup label="Not at all">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                        </optgroup>
+                        <optgroup label="Somewhat">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </optgroup>
+                        <optgroup label="Super Easy!">
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </optgroup>
+                    </select>
+                    <br>
+                    <br>
+                    <input type="submit"/>
+                    <input type="reset"/>
+                    </fieldset>
+                    <hr>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>
