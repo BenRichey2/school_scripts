@@ -5,17 +5,20 @@ html {
 }
 h1 {
     font-family: Arial, sans-serif;
-    font-size: 36pt;
+    font-size: 48pt;
     color: rgb(255,238,230);
     background-image: url(../images/background.jpg);
     background-repeat: repeat-x;
     margin: 0px;
-    padding-top: 15px;
-    padding-bottom: 30px;
-    height: 40px;
+    padding: 30px;
+    text-align: center;
 }
 cite, figcaption {
     font-size: 12pt;
+}
+nav {
+    float: left;
+    width: 25%;
 }
 nav > a, nav > a:visited {
     font-size: 28pt;
@@ -23,10 +26,12 @@ nav > a, nav > a:visited {
     list-style: none;
     display: block;
     background-color: rgb(0,34,204);
-    width: 500px;
+    width: 80%;
     box-shadow: 5px 5px;
     padding-left: 3px;
     text-decoration: none;
+    overflow: hidden;
+    text-align: center;
 }
 nav > a:hover {
     background-color: rgb(102,179,255);
@@ -34,8 +39,9 @@ nav > a:hover {
     text-decoration: none;
     color: rgb(255,238,230);
     padding-left: 15px;
-    padding-right: 15px;
     text-decoration: none;
+    overflow: hidden;
+    text-align: center;
 }
 p, li, h4, label, a:hover {
     color: rgb(255,238,230);
@@ -52,27 +58,26 @@ a:visited {
 h4, hr {
     font-weight: bold;
 }
-table {
-    border: solid 3pt rgb(140,146,172);
-    border-collapse: collapse;
-}
-td, th{
-    border: solid 2pt rgb(140,146,172);
-    padding: 10pt;
-}
-td {
-    color: rgb(255,238,230);
-}
-thead {
-    background-color: rgb(153,204,255);
-}
-tr:hover {
-    background-color: rgb(179,102,255);
-    color: rgb(255,238,230);
-}
 legend {
     font-size: 16pt;
     color: rgb(102,179,255);
+}
+textarea {
+    width: 100%;
+}
+.content {
+    float: left;
+    width: 45%;
+}
+.contact {
+    float: right;
+    width: 25%;
+    background-color: rgb(0,34,204);
+    border: 5px solid rgb(102,179,255);
+    overflow: auto;
+}
+.contact > h2 {
+    text-align: center;
 }
 .contentHeader {
     font-size: 24pt;
@@ -86,10 +91,52 @@ legend {
     font-size: 16pt;
     color: rgb(102,179,255);
 }
+.restuarantLogo {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+.review {
+    padding: 10pt;
+    max-height: 100px;
+    overflow-y: scroll;
+}
+.column {
+    width: 12%;
+    float: left;
+    overflow: auto;
+    padding: 5pt;
+    text-align: center;
+}
+.review {
+    width: 40%;
+}
 #headshot {
     width: 10%;
 }
 #profilePic {
     margin-top: 0px;
     padding: 0px;
+}
+#requestType1, #requestType2 {
+    color: rgb(255,238,230);
+}
+#quote {
+    font-family: Verdana, sans-serif;
+    font-size: 18pt;
+    color: black;
+    background-color: rgb(102,179,255);
+    margin: 15px;
+    padding: 10px;
+}
+/* Mobile Rules (phones and tablets) */
+@media only screen and (max-width: 800px) {
+    .content, .contact, #headshot, .column, .review {
+        width: 100%;
+        padding: 0;
+    }
+    nav {
+        float: none;
+        width: 100%;
+    }
 }
