@@ -65,8 +65,28 @@ legend {
 textarea {
     width: 100%;
 }
+figure.thumbnail {
+    position: relative;
+}
+figcaption.popup {
+    position: absolute;
+    visibility: hidden;
+}
+figure.thumbnail:hover figcaption.popup {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    visibility: visible;
+}
+div.showCaption {
+    position: relative;
+}
+div.showCaption > cite {
+    position: absolute;
+    top: 100px;
+}
 .content {
-    float: left;
+    float: right;
     width: 45%;
 }
 .contact {
@@ -138,5 +158,19 @@ textarea {
     nav {
         float: none;
         width: 100%;
+    }
+}
+/* Large Screens get transition effect */
+@media only screen and (min-width: 1760px) {
+    nav {
+        position: absolute;
+        left: -350px;
+        transition: left .6s ease-out;
+        width: 25%;
+    }
+    nav:hover {
+        left: 0;
+        width: 25%;
+        transition: left .6s ease-out;
     }
 }
