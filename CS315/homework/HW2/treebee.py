@@ -8,6 +8,7 @@ import sys
 import csv
 import ast
 import itertools
+import math
 
 # Debug
 import ipdb
@@ -55,17 +56,17 @@ class BinarySearchTree:
     def min(self, idx):
         try:
             while self.bst[2 * idx + 1] != None:
-                self.min(2 * idx + 1)
+                idx = 2 * idx + 1
             return self.bst[idx]
-        except IndexError: # The tree is empty or full, so we never reach a None element
+        except IndexError: # The tree is empty, so we never reach a None element
             return self.bst[idx]
 
     def max(self, idx):
         try:
             while self.bst[2 * idx + 2] != None:
-                self.max(2 * idx + 2)
+                idx = 2 * idx + 2
             return self.bst[idx]
-        except IndexError: # The tree is empty or full, so we never reach a None element
+        except IndexError: # The tree is empty so we never reach a none element
             return self.bst[idx]
 
     def doubleSize(self):
@@ -85,6 +86,36 @@ class BinarySearchTree:
                 return
         except IndexError: # We've reached a leaf so exit
             return
+
+    def showPreOrder(self, idx):
+        try:
+            while self.bst[idx] is not None:
+                print(self.bst[idx], end=",")
+                self.showPreOrder(2 * idx + 1)
+                self.showPreOrder(2 * idx + 2)
+                return
+        except IndexError: # We've reached a leaf so exit
+            return
+
+    def showPostOrder(self, idx):
+        try:
+            while self.bst[idx] is not None:
+                self.showPostOrder(2 * idx + 1)
+                self.showPostOrder(2 * idx + 2)
+                print(self.bst[idx], end=",")
+                return
+        except IndexError: # We've reached a leaf so exit
+            return
+
+    def calculateWastedSpace(self):
+        emptyNodes = 0
+        for node in self.bst:
+            if node is None:
+                emptyNodes += 1
+        emptyPercent = (emptyNodes / len(self.bst)) * 100
+        wastedkB = math.ceil((sys.getsizeof(None) * emptyNodes) / 1000)
+        print("There are {} empty nodes. {:.2f}% of the tree is ".format(emptyNodes, emptyPercent)
+                +"empty. {} kilobytes were wasted.".format(wastedkB))
 
 if __name__ == "__main__":
     # Load in data from csv files
@@ -111,8 +142,22 @@ if __name__ == "__main__":
             trees[filename].insert(0, node)
 
     # Print traversals
-    print("\nInorder Traversal: \n")
+    print("\n")
     for tree in trees.keys():
         print("{}:".format(tree))
+        theMax = trees[tree].max(0)
+        if theMax != 128:
+            print("\tERROR: Reported max: {} but expected 128".format(theMax))
+        theMin = trees[tree].min(0)
+        if theMin != 0:
+            print("\tERROR: Reported min: {} but expected 0".format(theMin))
+        print("\tMax: {} Min: {}".format(theMax, theMin))
+        print("\n\tInorder Traversal:")
         trees[tree].showInOrder(0)
+        print("\n\tPreorder Traversal:")
+        trees[tree].showPreOrder(0)
+        print("\n\tPostorder Traversal:")
+        trees[tree].showPostOrder(0)
+        print("\n\tWasted memory:")
+        trees[tree].calculateWastedSpace()
         print("\n")
