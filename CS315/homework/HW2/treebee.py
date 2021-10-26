@@ -62,9 +62,9 @@ class BinarySearchTree:
             elif self.bst[idx] == value:
                 return idx
             elif self.bst[idx] < value:
-                self.search(2 * idx + 1, value)
+                return self.search(2 * idx + 2, value)
             else:
-                self.search(2 * idx + 2, value)
+                return self.search(2 * idx + 1, value)
         except IndexError: # Tree full and not found or tree is empty
             return -1
 
