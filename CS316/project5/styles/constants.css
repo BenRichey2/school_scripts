@@ -23,7 +23,6 @@ nav {
 nav > a, nav > a:visited {
     font-size: 28pt;
     color: rgb(102,179,255);
-    list-style: none;
     display: block;
     background-color: rgb(0,34,204);
     width: 80%;
@@ -35,19 +34,13 @@ nav > a, nav > a:visited {
 }
 nav > a:hover {
     background-color: rgb(102,179,255);
-    box-shadow: 7px 7px;
-    text-decoration: none;
     color: rgb(255,238,230);
-    padding-left: 15px;
-    text-decoration: none;
     overflow: hidden;
-    text-align: center;
 }
 p, li, h4, label, a:hover {
     color: rgb(255,238,230);
     padding-left: 15px;
     padding-right: 15px;
-    text-decoration: none;
 }
 a:link, figcaption {
     color: rgb(153,204,255);
@@ -100,6 +93,7 @@ textarea {
     padding: 10pt;
     max-height: 100px;
     overflow-y: scroll;
+    width: 40%;
 }
 .column {
     width: 12%;
@@ -107,9 +101,6 @@ textarea {
     overflow: auto;
     padding: 5pt;
     text-align: center;
-}
-.review {
-    width: 40%;
 }
 #headshot {
     width: 10%;
