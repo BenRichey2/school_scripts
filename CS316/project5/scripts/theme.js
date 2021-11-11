@@ -54,6 +54,9 @@ theme.addEventListener("click", function(e) {
       lightTheme();
   }
   e.preventDefault(); // stops page refresh
+  // Since the page has been "reloaded", re-show the menu animation
+  $("nav, .content, .contact").hide();
+  $("nav, .content, .contact").slideDown(750);
 });
 var navMenuHover = document.querySelectorAll("nav > a");
 for (var i = 0; i < navMenuHover.length; i++) {
@@ -76,3 +79,6 @@ for (var i = 0; i < navMenuHover.length; i++) {
         }
         });
 }
+// Initial hide and slide down of menu animation
+$("nav, .content, .contact").hide();
+$("nav, .content, .contact").slideDown(750);
