@@ -28,6 +28,7 @@ import sys
 import os
 import csv
 import argparse
+import math
 
 import ipdb
 
@@ -95,6 +96,38 @@ class Graphyte:
             graph_string += vertex + " -> " + edgeString + "\n"
         return graph_string
 
+    def breadthFirstSearch(self, source_vertex):
+        for vertex in self.graph.keys():
+            self.graph[vertex][0].color = "WHITE"
+            self.graph[vertex][0].distance = math.inf
+            self.graph[vertex][0].predecessor = None
+        source_vertex.color = "GRAY"
+        source_vertex.distance = 0
+        source_vertex.predecessor = None
+        queue = []
+        queue.append(source_vertex)
+        while len(queue) > 0:
+            current = queue.pop(0)
+            for edge in self.graph[current.name][1]:
+                adj_vertex = edge.vertex1
+                if edge.vertex1 == current.name:
+                    adj_vertex = edge.vertex2
+                if self.graph[adj_vertex][0].color == "WHITE":
+                    self.graph[adj_vertex][0].color = "GRAY"
+                    self.graph[adj_vertex][0].distance = current.distance + 1
+                    self.graph[adj_vertex][0].predecessor = current
+                    queue.append(self.graph[adj_vertex][0])
+            current.color = "BLACK"
+
+    def printPath(self, source_vertex, dest_vertex):
+        if dest_vertex.name == source_vertex.name:
+            print(source_vertex.name)
+        elif dest_vertex.predecessor == None:
+            print("No path from {} to {}".format(source_vertex.name, dest_vertex.name))
+        else:
+            self.printPath(source_vertex, dest_vertex.predecessor)
+            print(dest_vertex.name)
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=("Graphyte is an adjacency list based "
@@ -138,3 +171,10 @@ if __name__ == "__main__":
             sys.exit()
     graph = Graphyte(vertices, edges)
     print(graph)
+    print("Finding shortest unweighted path from Arad to Sibiu")
+    graph.breadthFirstSearch(graph.graph["Arad"][0])
+    graph.printPath(graph.graph["Arad"][0], graph.graph["Sibiu"][0])
+    print("Finding shortest unweighted path from Arad to Craiova")
+    graph.printPath(graph.graph["Arad"][0], graph.graph["Craiova"][0])
+    print("Finding shortest unweighted path from Arad to Bucharest")
+    graph.printPath(graph.graph["Arad"][0], graph.graph["Bucharest"][0])
