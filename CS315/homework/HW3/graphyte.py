@@ -29,6 +29,7 @@ import os
 import csv
 import argparse
 import math
+import heapq
 
 import ipdb
 
@@ -53,16 +54,21 @@ class Vertex:
         self.predecessor = predecessor
         self.color = color
 
+    def __lt__(self, other):
+        return self.distance < other.distance
+
 class Graphyte:
 
     def __init__(self, vertices=[], edges=[]):
         self.graph = {}
+        vertexType = type(Vertex(None, None, None, None))
+        edgeType = type(UndirectedEdge(None, None, None))
         for vertex in vertices:
-            assert type(vertex) == type(Vertex(None, None, None, None)), "Error: vertex must be type Vertex"
+            assert type(vertex) == vertexType, "Error: vertex must be type Vertex"
             assert vertex.name not in self.graph.keys(), "Error: no two vertices may have the same name"
             self.graph[vertex.name] = (vertex, [])
         for edge in edges:
-            assert type(edge) == type(UndirectedEdge(None, None, None)), "Error: edge must be type UndirectedEdge"
+            assert type(edge) == edgeType, "Error: edge must be type UndirectedEdge"
             assert edge.vertex1 in self.graph.keys(), "Error: edge vertex 1 does not exist"
             assert edge.vertex2 in self.graph.keys(), "Error: edge vertex 2 does not exist"
             assert edge not in self.graph[edge.vertex1][1], "Error: cannot add edge twice"
@@ -70,28 +76,15 @@ class Graphyte:
             self.graph[edge.vertex1][1].append(edge)
             self.graph[edge.vertex2][1].append(edge)
 
-    """
-    def insertVertex(self, vertex):
-        assert vertex.name not in self.graph.keys(), "Error: cannot add already existing vertex to graph"
-        assert type(vertex) == type(Vertex(None, None, None, None)), "Error: Must insert vertices of type Vertex"
-        self.graph[vertex.name] =  (vertex, [])
-
-    def insertEdge(self, edge):
-        assert type(edge) == type(UndirectedEdge(None, None, None)), "Error: Must insert edges of type UndirectedEdge"
-        assert edge.vertex1 in self.graph.keys(), "Error: edge vertex 1 does not exist"
-        assert edge.vertex2 in self.graph.keys(), "Error: edge vertex 2 does not exist"
-        assert edge not in self.graph[edge.vertex1], "Error: cannot insert an already existing edge"
-        assert edge not in self.graph[edge.vertex2], "Error: cannot insert an already existing edge"
-        self.graph[edge.vertex1].append(edge)
-        self.graph[edge.vertex2].append(edge)
-        """
-
     def __str__(self):
         graph_string = ""
         for vertex in self.graph.keys():
             edgeString = ""
             for edge in self.graph[vertex][1]:
-                edgeString += "(" + edge.vertex1 + ", " + edge.vertex2 + ", " + str(edge.weight) + ")" + ", "
+                if vertex == edge.vertex1:
+                    edgeString += "(" + edge.vertex2 + ", " + str(edge.weight) + ")" + ", "
+                else:
+                    edgeString += "(" + edge.vertex1 + ", " + str(edge.weight) + ")" + ", "
             edgeString = edgeString[:len(edgeString) - 2]
             graph_string += vertex + " -> " + edgeString + "\n"
         return graph_string
@@ -128,6 +121,31 @@ class Graphyte:
             self.printPath(source_vertex, dest_vertex.predecessor)
             print(dest_vertex.name)
 
+    def dijkstra(self, source_vertex):
+        self.initSingleSource(source_vertex)
+        priorityQ = []
+        for vertex in self.graph.keys(): priorityQ.append(self.graph[vertex][0])
+        heapq.heapify(priorityQ)
+        while len(priorityQ) != 0:
+            current = heapq.heappop(priorityQ)
+            for edge in self.graph[current.name][1]:
+                adj_vertex = self.graph[edge.vertex1][0]
+                if edge.vertex1 == current.name:
+                    adj_vertex = self.graph[edge.vertex2][0]
+                self.relax(current, adj_vertex, edge.weight)
+                heapq.heapify(priorityQ)
+
+    def relax(self, current, adj_vertex, distance):
+        if adj_vertex.distance > (current.distance + distance):
+            adj_vertex.distance = current.distance + distance
+            adj_vertex.predecessor = current
+
+    def initSingleSource(self, source_vertex):
+        for vertex in self.graph.keys():
+            self.graph[vertex][0].distance = math.inf
+            self.graph[vertex][0].predecessor = None
+        source_vertex.distance = 0
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=("Graphyte is an adjacency list based "
@@ -155,6 +173,7 @@ if __name__ == "__main__":
          print("Error: " + str(err))
          sys.exit()
 
+    # Convert file data to UndirectedEdge and Vertex data types
     edges = []
     vertices = []
     for f in data.keys():
@@ -169,12 +188,17 @@ if __name__ == "__main__":
         else:
             print("Error: unexpected file found in data path: {}".format(f))
             sys.exit()
+    # Create and print graph
     graph = Graphyte(vertices, edges)
     print(graph)
+    # Show weighted and unweighted shortest paths for various cities
     print("Finding shortest unweighted path from Arad to Sibiu")
     graph.breadthFirstSearch(graph.graph["Arad"][0])
     graph.printPath(graph.graph["Arad"][0], graph.graph["Sibiu"][0])
     print("Finding shortest unweighted path from Arad to Craiova")
     graph.printPath(graph.graph["Arad"][0], graph.graph["Craiova"][0])
     print("Finding shortest unweighted path from Arad to Bucharest")
+    graph.printPath(graph.graph["Arad"][0], graph.graph["Bucharest"][0])
+    print("Finding shortest weighted path from Arad to Bucharest")
+    graph.dijkstra(graph.graph["Arad"][0])
     graph.printPath(graph.graph["Arad"][0], graph.graph["Bucharest"][0])
