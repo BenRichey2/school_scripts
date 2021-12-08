@@ -29,16 +29,16 @@
         </header>
         <main>
             <nav>
-                <a href="./ben-richey.html"><strong>Home</strong></a>
-                <a href="./resume.html"><strong>My Resume</strong></a>
-                <a href="./myWork.html"><strong>My Work</strong></a>
-                <a href="./myInterests.html"><strong>My Interests</strong></a>
-                <a href="./theOfficeQuote.html"><strong>The Office Quote of the Day</strong></a>
-                <a href="./report.html"><strong>Report Bugs or Feature Requests</strong></a>
+                <a href="/pages/ben-richey.html"><strong>Home</strong></a>
+                <a href="/pages/resume.html"><strong>My Resume</strong></a>
+                <a href="/pages/myWork.html"><strong>My Work</strong></a>
+                <a href="/pages/myInterests.html"><strong>My Interests</strong></a>
+                <a href="/pages/theOfficeQuote.php"><strong>The Office Quote of the Day</strong></a>
+                <a href="/pages/report.html"><strong>Report Bugs or Feature Requests</strong></a>
             </nav>
             <section class="content">
                 <h2 class="contentHeader">Report Bugs or Feature Requests</h2>
-                <form method="post" action="http://examples.funwebdev.com/process.php">
+                <form method="post" action="http://localhost/server_scripts/report.php">
                     <fieldset>
                     <legend>Your Contact Info</legend>
                     <p>You may provide your contact information if you wish to be contacted back
@@ -59,12 +59,8 @@
                     <select id="county" name="county">
                     </select>
                     <br>
-                    <input type="submit"/>
-                    <input type="reset"/>
                     </fieldset>
                     <hr>
-                </form>
-                <form method="post" action="http://examples.funwebdev.com/process.php">
                     <fieldset>
                     <legend>Bug Report or Feature Request?</legend>
                     <p>
@@ -75,18 +71,15 @@
                     </p>
                     <label for="report">Enter Report/Request Here</label><br>
                     <textarea id="report" name="request" rows="8" required></textarea><br>
-                    <input type="submit"/>
-                    <input type="reset"/>
                     </fieldset>
                     <hr>
-                </form>
-                <form method="post" action="http://examples.funwebdev.com/process.php">
                     <fieldset>
                     <legend>Please Take a Moment to Rate this Website</legend>
                     <br>
                     <label for="aesetheticAppeal">Please rate this website for aesthetic appeal
                     </label>
                     <select id="aesetheticAppeal" name="aestheticAppeal">
+			<option value="6" selected>Select one</option>
                         <optgroup label="Terrible">
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -103,6 +96,7 @@
                     <br>
                     <label for="logic">Is this website easy to use?</label>
                     <select id="logic" name="logic">
+			<option value="6" selected>Select one</option>
                         <optgroup label="Not at all">
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -118,10 +112,10 @@
                     </select>
                     <br>
                     <br>
-                    <input type="submit"/>
+                    <input type="submit" name="submitBttn"/>
                     <input type="reset"/>
                     </fieldset>
-                </form>
+		</form>
             </section>
             <section class="contact">
                 <h2 class="contentHeader">Contact</h2>
@@ -139,6 +133,6 @@
             </section>
         </main>
     </body>
-    <script type="text/javascript" src="../scripts/theme.js"></script>
-    <script type ="text/javascript" src="../scripts/whereAreYouFrom.js"></script>
+    <script type="text/javascript" src="/scripts/theme.js"></script>
+    <script type ="text/javascript" src="/scripts/whereAreYouFrom.js"></script>
 </html>

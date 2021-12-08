@@ -3360,6 +3360,11 @@ function selectCountyList(state) {
 // main
 // start out with all states to be selected from
 var stateForm = document.getElementById("state");
+var option = document.createElement("option");
+option.appendChild(document.createTextNode("Select state"));
+option.value = "Select state";
+option.setAttribute("selected", true);
+stateForm.appendChild(option);
 for (var i = 0; i < states.length; i++) {
     var option = document.createElement("option");
     option.appendChild(document.createTextNode(states[i]));
@@ -3367,16 +3372,15 @@ for (var i = 0; i < states.length; i++) {
     stateForm.appendChild(option);
 }
 var countyForm = document.getElementById("county");
-for (var i = 0; i < alabamaCounties.length; i++) {
-    var option = document.createElement("option");
-    option.appendChild(document.createTextNode(alabamaCounties[i]));
-    option.value = alabamaCounties[i];
-    countyForm.appendChild(option);
-}
+var option = document.createElement("option");
+option.appendChild(document.createTextNode("Select county"));
+option.value = "Select county";
+option.setAttribute("selected", true);
+countyForm.appendChild(option);
 stateForm.addEventListener("change", 
     function(e) {
         $("#county").children().remove().end();
-        var state = states[this.selectedIndex];
+        var state = states[this.selectedIndex - 1];
         var counties = selectCountyList(state);
         for (var i = 0; i < counties.length; i++) {
             var option = document.createElement("option");

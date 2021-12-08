@@ -29,12 +29,12 @@
         </header>
         <main>
             <nav>
-                <a href="./ben-richey.html"><strong>Home</strong></a>
-                <a href="./resume.html"><strong>My Resume</strong></a>
-                <a href="./myWork.html"><strong>My Work</strong></a>
-                <a href="./myInterests.html"><strong>My Interests</strong></a>
-                <a href="./theOfficeQuote.php"><strong>The Office Quote of the Day</strong></a>
-                <a href="./report.html"><strong>Report Bugs or Feature Requests</strong></a>
+                <a href="/pages/ben-richey.html"><strong>Home</strong></a>
+                <a href="/pages/resume.html"><strong>My Resume</strong></a>
+                <a href="/pages/myWork.html"><strong>My Work</strong></a>
+                <a href="/pages/myInterests.html"><strong>My Interests</strong></a>
+                <a href="/pages/theOfficeQuote.php"><strong>The Office Quote of the Day</strong></a>
+                <a href="/pages/report.html"><strong>Report Bugs or Feature Requests</strong></a>
             </nav>
             <section class="content">
                 <h2 class="contentHeader">The Office Quote Generator</h2>
@@ -43,9 +43,9 @@
                 <figure>
 		<?php
 			$servername = "localhost";
-			$username = "johndoe";
+			$username = "username";
 			$password = "password";
-			$dbname = "genericdbName";
+			$dbname = "dbname";
 			
 			// Connect to database
 			$conn = new mysqli($servername, $username, $password, $dbname);
@@ -64,6 +64,14 @@
 			$conn->close();
 		?>
 	    </figure>
+	    <form method="post" action="http://localhost/server_scripts/authorSelect.php">
+                        <legend>Want a random quote from a specific character?</legend>
+                        <p>Type their name here to see if we have one.</p></br>
+                        <label>The Office Character</label>
+                        <input type="text" name="character" placeholder="ex: Michael Scott"/>
+			<input type="submit" name="submitBttn"/>
+
+            </form>
             </section>
             <section class="contact">
                 <h2 class="contentHeader">Contact</h2>

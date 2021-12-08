@@ -102,7 +102,7 @@ textarea {
 #requestType1, #requestType2 {
     color: rgb(255,238,230);
 }
-#quote {
+#quote, #selectquote {
     font-family: Verdana, sans-serif;
     font-size: 18pt;
     color: black;
