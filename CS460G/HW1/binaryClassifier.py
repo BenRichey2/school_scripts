@@ -42,7 +42,7 @@ import os
 import csv
 import ast
 import math
-from treelib import Node, Tree
+from anytree import NodeMixin, RenderTree
 import ipdb
 
 SYNTHETIC_AVOID_FILES = ["pokemonLegendary.csv", "pokemonStats.csv", "README.txt"]
@@ -53,13 +53,51 @@ SYNTHETIC_2_NUM_BINS = 2
 SYNTHETIC_3_NUM_BINS = 2
 SYNTHETIC_4_NUM_BINS = 2
 
-class TreeNode(object):
+class TreeNode(NodeMixin):
+    """
+        Represents a question in the decision tree
+            - splitting_feature: the question this node's children split on
+            - branch_feature: the question this node's parent split on
+            - branch_val: value of branch feature
+            - parent: question leading to this question
+            - children: answers or further questions
+    """
+    def __init__(self, parent=None, children=None):
+        super(TreeNode, self).__init__()
+        self.splitting_feature = None
+        self.branch_feature = None
+        self.branch_val = None
+        self.parent = parent
+        if children:
+            self.children = children
 
-    def __init__(self, features, chosen_f, possible_f_vals, prediction):
-        self.features = features
-        self.chosenFeature = chosen_f
-        self.children = possible_feature_vals
-        self.prediction = prediction
+class TreeLeaf(NodeMixin):
+    """
+        Represents an answer to a question in the decision tree
+            - feature: feature the previous question split on
+            - feature_val: value of feature
+            - prediction: answer to question
+            - parent: question this answers
+    """
+    def __init__(self, parent=None):
+        super(TreeLeaf, self).__init__()
+        self.feature = None
+        self.feature_val = None
+        self.prediction = None
+        self.parent = parent
+
+def print_tree(root):
+    for pre, fill, node in RenderTree(root):
+        if type(node) == type(TreeLeaf()):
+            print("{}Leaf: feature: {}, feature_val: {}, prediction: {}".format(pre, node.feature,
+                                                                          node.feature_val,
+                                                                          node.prediction))
+        elif type(node) == type(TreeNode()):
+            if node.branch_feature:
+                print("{}Node: branch_feature: {}, branch_val: {}, splitting_feature: {}".format(
+                      pre, node.branch_feature, node.branch_val, node.splitting_feature))
+            else:
+                print("{}Node: splitting_feature: {}".format(pre, node.splitting_feature))
 
 class SyntheticDataSet:
 
@@ -80,36 +118,70 @@ def check_all_same_class(data):
     for item in data:
         if first_class != item:
             return False
-    return first_class
-
-def create_single_class(tree, data, the_class):
-    prediction = the_class
-    features = data.features.keys()
-    chosen_f = None
-    possible_f_vals = None
-    tree.create_node("Root", "root", data=TreeNode(features, chosen_f, possible_f_vals, prediction))
+    return True
 
 def find_most_common_class(data, possible_class_vals):
     most_common = possible_class_vals[0]
     the_max = 0
     for val in possible_class_vals:
-        if num_samples_of_class(data, val) > the_max:
-            the_max = num_samples_of_class(data, val)
+        if num_samples_of_class(data.classlist, val) > the_max:
+            the_max = num_samples_of_class(data.classlist, val)
             most_common = val
     return most_common
 
-def check_no_features(tree, data):
-    if len(data.features.keys()) == 0:
-        the_class = find_most_common_class(data.classlist, possible_class_vals)
-        create_single_class(tree, data, the_class)
+def find_best_feature_to_split_on(data, num_bins, available_features):
+    highest_info_gain = 0.0
+    best_feature = None
+    possible_feature_vals = [i for i in range(num_bins)]
+    for feature, feature_list in data.features.items():
+        if feature not in available_features:
+            continue
+        new_info = information_gain(data, feature, possible_feature_vals, [0, 1])
+        if new_info >= highest_info_gain:
+            highest_info_gain = new_info
+            best_feature = feature
+    return best_feature
 
-def syntheticID3(tree, data):
-    one_class = check_all_same_class(data.classlist)
-    if (one_class):
-        create_single_class(tree, data, one_class)
-        return
-    if (check_no_features(tree, data)):
-        return
+def ID3(data, num_bins, available_features, target_feature=None, target_feature_val=None):
+    # Base cases
+    if (check_all_same_class(data.classlist)):
+        root = TreeLeaf()
+        if target_feature:
+            root.feature = target_feature
+            root.feature_val = target_feature_val
+        root.prediction = data.classlist[0]
+        return root
+    if len(available_features) == 0:
+        root = TreeLeaf()
+        if target_feature:
+            root.feature = target_feature
+            root.feature_val = target_feature_val
+        root.prediction = find_most_common_class(data, [0, 1])
+        return root
+    # Begin training
+    root = TreeNode()
+    root.splitting_feature = find_best_feature_to_split_on(data, num_bins, available_features)
+    possible_feature_vals = [i for i in range(num_bins)]
+    for feature_val in possible_feature_vals:
+        subset = get_subset(data, root.splitting_feature, feature_val)
+        if len(subset.classlist) == 0:
+            leaf = TreeLeaf(parent=root)
+            leaf.feature = root.splitting_feature
+            leaf.feature_val = feature_val
+            leaf.prediction = find_most_common_class(data, [0, 1])
+        else:
+            try:
+                tmp = [f for f in available_features]
+                tmp.remove(root.splitting_feature)
+                subtree = ID3(subset, num_bins, tmp, root.splitting_feature, feature_val)
+                subtree.parent = root
+                if type(subtree) == type(TreeNode()):
+                    # This is another question, below the parent question node
+                    subtree.branch_feature = root.splitting_feature
+                    subtree.branch_val = feature_val
+            except ValueError: # No features left to split on
+                return root
+    return root
 
 def entropy(data, possible_classes):
     """
@@ -120,6 +192,8 @@ def entropy(data, possible_classes):
     # iterate through all possible classes
     for clss in possible_classes:
         # calculate probability of current class
+        if len(data) == 0:
+            return 0.0
         prob = num_samples_of_class(data, clss) / len(data)
         if prob == 0.0:
             return prob
@@ -198,8 +272,13 @@ def build_and_test_synthetic_data_classifier(data_dir):
         curr_data = data[dataset]
         num_bins = determine_synthetic_num_bins(dataset) # Allow different number of bins per file
         discretize(curr_data, num_bins)
-        decision_trees[dataset] = Tree()
-        ID3(decision_trees[dataset], curr_data)
+        # Create tree
+        available_features = [key for key in curr_data.features.keys()]
+        decision_trees[dataset] = ID3(curr_data, num_bins, available_features)
+        print("--------------------")
+        print("{}:".format(dataset))
+        print("--------------------")
+        print_tree(decision_trees[dataset])
 
 def load_synthetic_data(data_dir):
     synthetic_data = {}
