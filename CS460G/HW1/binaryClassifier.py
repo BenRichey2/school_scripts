@@ -52,6 +52,9 @@ SYNTHETIC_1_NUM_BINS = 2
 SYNTHETIC_2_NUM_BINS = 3
 SYNTHETIC_3_NUM_BINS = 5
 SYNTHETIC_4_NUM_BINS = 5
+POKEMON_NUM_BINS = 5
+
+MAX_TREE_DEPTH = 3
 
 class TreeNode(NodeMixin):
     """
@@ -173,8 +176,12 @@ def find_best_feature_to_split_on(data, num_bins, available_features):
             best_feature = feature
     return best_feature
 
-def ID3(data, num_bins, available_features, target_feature=None, target_feature_val=None):
+def ID3(data, num_bins, available_features, target_feature=None, target_feature_val=None, curr_depth=None):
     # Base cases
+    if curr_depth:
+        ipdb.set_trace()
+        if curr_depth == MAX_TREE_DEPTH:
+            return None
     if (check_all_same_class(data.classlist)):
         root = TreeLeaf()
         if target_feature:
@@ -204,8 +211,9 @@ def ID3(data, num_bins, available_features, target_feature=None, target_feature_
             try:
                 tmp = [f for f in available_features]
                 tmp.remove(root.splitting_feature)
-                subtree = ID3(subset, num_bins, tmp, root.splitting_feature, feature_val)
-                subtree.parent = root
+                subtree = ID3(subset, num_bins, tmp, root.splitting_feature, feature_val, root.depth)
+                if subtree:
+                    subtree.parent = root
                 if type(subtree) == type(TreeNode()):
                     # This is another question, below the parent question node
                     subtree.branch_feature = root.splitting_feature
@@ -343,9 +351,53 @@ def load_synthetic_data(data_dir):
                 sys.exit()
     return synthetic_data
 
+def load_pokemon_data(data_dir):
+    data = {}
+    for root, dirs, files in os.walk(data_dir):
+        for f in files: # Iterate through files in data_dir
+            if f in POKEMON_AVOID_FILES:
+                continue # Skip synthetic files and README
+            try:
+                with open(os.path.join(root, f)) as csvfile:
+                    filedata = SyntheticDataSet()
+                    reader = csv.reader(csvfile)
+                    for row in reader:
+                        for i in range(len(row)):
+                            filedata.features[row[i]] = []
+                        break
+                    keys = [key for key in filedata.features.keys()]
+                    first_row_skipped = False
+                    for row in reader:
+                        #if first_row_skipped:
+                        for i in range(len(row)):
+                            filedata.features[keys[i]].append(ast.literal_eval(row[i]))
+                        #else:
+                        #    first_row_skipped = True
+                    data[f] = filedata # Store all file data in dictionary
+            except IOError as err:
+                print("Error: Unable to open file {}".format(f))
+                sys.exit()
+    return data
+
+
 def build_and_test_pokemon_classifier(data_dir):
-    #TODO
-    pass
+    # Load in training/test data
+    data = load_pokemon_data(data_dir)
+    # Convert to single object storing feature and class data
+    pokemon_data = data["pokemonStats.csv"]
+    pokemon_data.classlist = [i for i in data["pokemonLegendary.csv"].features["Legendary"]]
+    #discretize(curr_data, POKEMON_NUM_BINS)
+    # Create tree
+    available_features = [key for key in pokemon_data.features.keys()]
+    """
+    decision_tree = ID3(pokemon_data, POKEMON_NUM_BINS, available_features)
+    print("--------------------")
+    print("Pokemon Decision Tree:")
+    print("--------------------")
+    print_tree(decision_tree)
+    accuracy = test_pokemon_decision_tree(decision_tree, pokemon_data)
+    print("Classification accuracy: {}".format(accuracy))
+    """
 
 if __name__ == "__main__":
     try:
