@@ -49,9 +49,9 @@ SYNTHETIC_AVOID_FILES = ["pokemonLegendary.csv", "pokemonStats.csv", "README.txt
 POKEMON_AVOID_FILES = ["synthetic-1.csv", "synthetic-2.csv", "synthetic-3.csv",
                        "synthetic-4.csv", "README.txt"]
 SYNTHETIC_1_NUM_BINS = 2
-SYNTHETIC_2_NUM_BINS = 2
-SYNTHETIC_3_NUM_BINS = 2
-SYNTHETIC_4_NUM_BINS = 2
+SYNTHETIC_2_NUM_BINS = 3
+SYNTHETIC_3_NUM_BINS = 5
+SYNTHETIC_4_NUM_BINS = 5
 
 class TreeNode(NodeMixin):
     """
@@ -98,6 +98,37 @@ def print_tree(root):
                       pre, node.branch_feature, node.branch_val, node.splitting_feature))
             else:
                 print("{}Node: splitting_feature: {}".format(pre, node.splitting_feature))
+
+def classify_synthetic_data(root, f1, f2):
+    """
+        @param root: TreeNode or TreeLeaf object that is part of a decision tree
+        @param f1: feature 1 value
+        @param f2: feature 2 value
+        @return class prediction (0 or 1)
+    """
+    if type(root) == type(TreeLeaf()):
+        # All data was the same class or no features available to split on
+        return root.prediction
+    # Working w/ TreeNode object -> so this is a question
+    splitting_feature_val = f1 # Check which feature value to use
+    if root.splitting_feature == "f2":
+        splitting_feature_val = f2
+    # Iterate through children to get answer or ask more questions
+    for child in root.children:
+        if type(child) == type(TreeLeaf()):
+            # This is an answer to our question
+            if child.feature_val == splitting_feature_val:
+                # This is the answer
+                return child.prediction
+            else:
+                # This is not the answer
+                continue
+        if type(child) == type(TreeNode()):
+            # This is another question
+            if child.branch_val == splitting_feature_val:
+                return classify_synthetic_data(child, f1, f2)
+            else:
+                continue
 
 class SyntheticDataSet:
 
@@ -262,6 +293,14 @@ def determine_synthetic_num_bins(filename):
         print("Error: corrupted data directory")
         sys.exit()
 
+def test_synthetic_decision_tree(root, data):
+    num_correct = 0
+    for i in range(len(data.classlist)):
+        prediction = classify_synthetic_data(root, data.features["f1"][i], data.features["f2"][i])
+        if prediction == data.classlist[i]:
+            num_correct += 1
+    return num_correct / len(data.classlist) * 100
+
 def build_and_test_synthetic_data_classifier(data_dir):
     # dictionary to store tree for each synthetic data set
     decision_trees = {}
@@ -279,6 +318,8 @@ def build_and_test_synthetic_data_classifier(data_dir):
         print("{}:".format(dataset))
         print("--------------------")
         print_tree(decision_trees[dataset])
+        accuracy = test_synthetic_decision_tree(decision_trees[dataset], curr_data)
+        print("Classification accuracy: {}".format(accuracy))
 
 def load_synthetic_data(data_dir):
     synthetic_data = {}
