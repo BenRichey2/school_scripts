@@ -37,6 +37,7 @@
     OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+# Tree training/testing libs
 import sys
 import os
 import csv
@@ -44,6 +45,12 @@ import ast
 import math
 from anytree import NodeMixin, RenderTree
 import ipdb
+
+# Synthetic visualization libs
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import ListedColormap
 
 SYNTHETIC_AVOID_FILES = ["pokemonLegendary.csv", "pokemonStats.csv", "README.txt"]
 POKEMON_AVOID_FILES = ["synthetic-1.csv", "synthetic-2.csv", "synthetic-3.csv",
@@ -55,6 +62,31 @@ SYNTHETIC_4_NUM_BINS = 5
 POKEMON_NUM_BINS = 5
 
 MAX_TREE_DEPTH = 3
+
+"""
+def plot_synthetic_data(tree, num_bins):
+    plot_data = SyntheticDataSet()
+    plot_data.features['f1'] = []
+    plot_data.features['f2'] = []
+    for i in range(50):
+        for j in range(50):
+            plot_data.features['f2'].append(i)
+            plot_data.features['f1'].append(j)
+    discretize(plot_data, num_bins)
+    data_sampling = np.ndarray((50,50), dtype=int)
+    k = 0
+    for i in range(50):
+        for j in range(50):
+            data_sampling[i][j] = classify_synthetic_data(tree, plot_data.features, k)
+            k += 1
+    cmap = ListedColormap(["green", "red"])
+    fig, axs = plt.subplots(1, 1, figsize=(4, 3), constrained_layout=True, squeeze=False)
+    for ax in axs.flat:
+        psm = ax.pcolormesh(data_sampling, cmap=cmap, rasterized=True, vmin=0, vmax=1)
+        fig.colorbar(psm, ax=ax)
+        plt.show()
+    ipdb.set_trace()
+"""
 
 class TreeNode(NodeMixin):
     """
@@ -330,6 +362,7 @@ def build_and_test_synthetic_data_classifier(data_dir):
         # Create tree
         available_features = [key for key in curr_data.features.keys()]
         decision_trees[dataset] = ID3(curr_data, num_bins, available_features)
+        #plot_synthetic_data(decision_trees[dataset], num_bins)
         print("--------------------")
         print("{}:".format(dataset))
         print("--------------------")
