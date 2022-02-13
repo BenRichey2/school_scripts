@@ -102,20 +102,19 @@ def print_tree(root):
             else:
                 print("{}Node: splitting_feature: {}".format(pre, node.splitting_feature))
 
-def classify_synthetic_data(root, f1, f2):
+def classify_synthetic_data(root, features, idx):
     """
         @param root: TreeNode or TreeLeaf object that is part of a decision tree
-        @param f1: feature 1 value
-        @param f2: feature 2 value
+        @param features: dictionary containing feature data
+        @param idx: index of example we're classifying
         @return class prediction (0 or 1)
     """
     if type(root) == type(TreeLeaf()):
         # All data was the same class or no features available to split on
         return root.prediction
     # Working w/ TreeNode object -> so this is a question
-    splitting_feature_val = f1 # Check which feature value to use
-    if root.splitting_feature == "f2":
-        splitting_feature_val = f2
+    # Get value of feature we're splitting on
+    splitting_feature_val = features[root.splitting_feature][idx]
     # Iterate through children to get answer or ask more questions
     for child in root.children:
         if type(child) == type(TreeLeaf()):
@@ -129,8 +128,10 @@ def classify_synthetic_data(root, f1, f2):
         if type(child) == type(TreeNode()):
             # This is another question
             if child.branch_val == splitting_feature_val:
-                return classify_synthetic_data(child, f1, f2)
+                # This is the next `question we want to ask
+                return classify_synthetic_data(child, features, idx)
             else:
+                # This isn't the question we want to ask next
                 continue
 
 class SyntheticDataSet:
@@ -178,10 +179,18 @@ def find_best_feature_to_split_on(data, num_bins, available_features):
 
 def ID3(data, num_bins, available_features, target_feature=None, target_feature_val=None, curr_depth=None):
     # Base cases
-    if curr_depth:
-        ipdb.set_trace()
-        if curr_depth == MAX_TREE_DEPTH:
-            return None
+    if curr_depth: # Depth limit
+        if curr_depth == MAX_TREE_DEPTH - 1:
+            root = TreeLeaf()
+            if target_feature:
+                root.feature = target_feature
+                root.feature_val = target_feature_val
+            root.prediction = find_most_common_class(data, [0, 1])
+            return root
+        else:
+            curr_depth += 1
+    else:
+        curr_depth = 1
     if (check_all_same_class(data.classlist)):
         root = TreeLeaf()
         if target_feature:
@@ -211,9 +220,8 @@ def ID3(data, num_bins, available_features, target_feature=None, target_feature_
             try:
                 tmp = [f for f in available_features]
                 tmp.remove(root.splitting_feature)
-                subtree = ID3(subset, num_bins, tmp, root.splitting_feature, feature_val, root.depth)
-                if subtree:
-                    subtree.parent = root
+                subtree = ID3(subset, num_bins, tmp, root.splitting_feature, feature_val, curr_depth)
+                subtree.parent = root
                 if type(subtree) == type(TreeNode()):
                     # This is another question, below the parent question node
                     subtree.branch_feature = root.splitting_feature
@@ -304,7 +312,7 @@ def determine_synthetic_num_bins(filename):
 def test_synthetic_decision_tree(root, data):
     num_correct = 0
     for i in range(len(data.classlist)):
-        prediction = classify_synthetic_data(root, data.features["f1"][i], data.features["f2"][i])
+        prediction = classify_synthetic_data(root, data.features, i)
         if prediction == data.classlist[i]:
             num_correct += 1
     return num_correct / len(data.classlist) * 100
@@ -368,17 +376,21 @@ def load_pokemon_data(data_dir):
                     keys = [key for key in filedata.features.keys()]
                     first_row_skipped = False
                     for row in reader:
-                        #if first_row_skipped:
                         for i in range(len(row)):
                             filedata.features[keys[i]].append(ast.literal_eval(row[i]))
-                        #else:
-                        #    first_row_skipped = True
                     data[f] = filedata # Store all file data in dictionary
             except IOError as err:
                 print("Error: Unable to open file {}".format(f))
                 sys.exit()
     return data
 
+def test_pokemon_decision_tree(root, data):
+    num_correct = 0
+    for i in range(len(data.classlist)):
+        prediction = classify_synthetic_data(root, data.features, i)
+        if prediction == data.classlist[i]:
+            num_correct += 1
+    return num_correct / len(data.classlist) * 100
 
 def build_and_test_pokemon_classifier(data_dir):
     # Load in training/test data
@@ -386,10 +398,15 @@ def build_and_test_pokemon_classifier(data_dir):
     # Convert to single object storing feature and class data
     pokemon_data = data["pokemonStats.csv"]
     pokemon_data.classlist = [i for i in data["pokemonLegendary.csv"].features["Legendary"]]
-    #discretize(curr_data, POKEMON_NUM_BINS)
+    # Convert True/False classes to 1/0
+    for i in range(len(pokemon_data.classlist)):
+        if pokemon_data.classlist[i]:
+            pokemon_data.classlist[i] = 1
+        else:
+            pokemon_data.classlist[i] = 0
+    discretize(pokemon_data, POKEMON_NUM_BINS)
     # Create tree
     available_features = [key for key in pokemon_data.features.keys()]
-    """
     decision_tree = ID3(pokemon_data, POKEMON_NUM_BINS, available_features)
     print("--------------------")
     print("Pokemon Decision Tree:")
@@ -397,7 +414,6 @@ def build_and_test_pokemon_classifier(data_dir):
     print_tree(decision_tree)
     accuracy = test_pokemon_decision_tree(decision_tree, pokemon_data)
     print("Classification accuracy: {}".format(accuracy))
-    """
 
 if __name__ == "__main__":
     try:
