@@ -17,7 +17,7 @@
     data we trained on.
     
     The MIT License (MIT)
-    Copyright © 2022 <Ben Richey>
+    Copyright © 2022 Ben Richey
 
     Permission is hereby granted, free of charge, to any person obtaining a copy 
     of this software and associated documentation files (the “Software”), to deal
@@ -63,21 +63,35 @@ POKEMON_NUM_BINS = 5
 
 MAX_TREE_DEPTH = 3
 
-"""
-def plot_synthetic_data(tree, num_bins):
+def plot_synthetic_data(tree, num_bins, og_data):
+    min_f1 = min(og_data.features['f1'])
+    min_f2 = min(og_data.features['f2'])
+    max_f1 = max(og_data.features['f1'])
+    max_f2 = max(og_data.features['f2'])
     plot_data = SyntheticDataSet()
     plot_data.features['f1'] = []
     plot_data.features['f2'] = []
-    for i in range(50):
-        for j in range(50):
-            plot_data.features['f2'].append(i)
-            plot_data.features['f1'].append(j)
+    num_data_points = 10000
+    inc = ((max_f1 + 1) - (min_f1 - 1)) / num_data_points
+    i = min_f1 - 1
+    while i < max_f1 + 1:
+        plot_data.features['f1'].append(i)
+        i += inc
+    inc = ((max_f2 + 1) - (min_f2 - 1)) / num_data_points
+    i = min_f2 - 1
+    while i < max_f2 + 1:
+        plot_data.features['f2'].append(i)
+        i += inc
+    while len(plot_data.features['f1']) > num_data_points:
+        plot_data.features['f1'].pop()
+    while len(plot_data.features['f2']) > num_data_points:
+        plot_data.features['f2'].pop()
     discretize(plot_data, num_bins)
-    data_sampling = np.ndarray((50,50), dtype=int)
+    data_sampling = np.ndarray((100, 100))
     k = 0
-    for i in range(50):
-        for j in range(50):
-            data_sampling[i][j] = classify_synthetic_data(tree, plot_data.features, k)
+    for i in range(100):
+        for j in range(100):
+            data_sampling[j][i] = classify_synthetic_data(tree, plot_data.features, k)
             k += 1
     cmap = ListedColormap(["green", "red"])
     fig, axs = plt.subplots(1, 1, figsize=(4, 3), constrained_layout=True, squeeze=False)
@@ -85,8 +99,6 @@ def plot_synthetic_data(tree, num_bins):
         psm = ax.pcolormesh(data_sampling, cmap=cmap, rasterized=True, vmin=0, vmax=1)
         fig.colorbar(psm, ax=ax)
         plt.show()
-    ipdb.set_trace()
-"""
 
 class TreeNode(NodeMixin):
     """
@@ -354,6 +366,7 @@ def build_and_test_synthetic_data_classifier(data_dir):
     decision_trees = {}
     # Load in training/test data
     data = load_synthetic_data(data_dir)
+    og_data = load_synthetic_data(data_dir) # Keep an undiscretized copy for plotting later
     # Iterate through all data sets and make decision trees
     for dataset in data.keys():
         curr_data = data[dataset]
@@ -362,7 +375,7 @@ def build_and_test_synthetic_data_classifier(data_dir):
         # Create tree
         available_features = [key for key in curr_data.features.keys()]
         decision_trees[dataset] = ID3(curr_data, num_bins, available_features)
-        #plot_synthetic_data(decision_trees[dataset], num_bins)
+        #plot_synthetic_data(decision_trees[dataset], num_bins, og_data[dataset])
         print("--------------------")
         print("{}:".format(dataset))
         print("--------------------")
