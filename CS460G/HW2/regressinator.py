@@ -45,10 +45,12 @@ SYNTHETIC_FILES = ["synthetic-1.csv", "synthetic-2.csv"]
 
 REG_MODELS = {} # Contains theta values for each model
 ALPHAS = {}     # Contains alpha parameter for each model
-ALPHAS["wine"] = 0.00000001
+ALPHAS["wine"] = 0.001
 ALPHAS["synthetic-1.csv"] = 0.00000001
 ALPHAS["synthetic-2.csv"] = 0.00000001
-TIME_STEPS = 10000
+TIME_STEPS = 100000
+BENCHMARKS = {}
+BENCHMARKS["wine"] = 1.2
 
 def load_file_data(data_dir, filename):
     data = {}
@@ -136,6 +138,29 @@ def linear_gradient_descent(data, model):
         for j in range(len(REG_MODELS[model])):
             new_theta = REG_MODELS[model][j] - (ALPHAS[model] * lin_loss_pdwrtj(j, model, data))
             REG_MODELS[model][j] = new_theta
+        if mse(data, model) < BENCHMARKS[model]:
+            print("MSE reached acceptable amount for {} model. Ending training.".format(model))
+            return
+
+def mse(data, model):
+    """
+        Computes the mean squared error for the given model
+        @param data: dictionary where key = feature name and value = list of values
+                     for that feature. One special key, called 'classification',
+                     has a value of a list of the correct classification for each
+                     example.
+        @param model: model to train
+        @return: mean squared error of model on training data
+    """
+    sum = 0
+    keys = [ k for k in data.keys() if k != "classification"]
+    m = len(data[keys[0]])
+    for i in range(m):
+        vals = [data[f][i] for f in keys]
+        vals.insert(0, 1.0) # Prepend w/ 1 to account for theta_0
+        x_vals = np.asarray(vals, dtype=float)
+        sum += (linear_reg(x_vals, model) - data["classification"][i]) ** 2
+    return sum * (1 / m)
 
 if __name__ == "__main__":
 
@@ -153,7 +178,7 @@ if __name__ == "__main__":
     REG_MODELS["wine"] =  np.asarray([np.random.rand() for theta in range(len(wine_data.keys()))])
     linear_gradient_descent(wine_data, "wine")
     try:
-        with open(os.path.join(data_dir, "model_parameters.yaml")) as f:
+        with open(os.path.join(data_dir, "model_parameters.yaml"), "w+") as f:
             yaml.dump(REG_MODELS, f)
             print("Saved training parameters to {}".format(os.path.join(data_dir, "model_parameters.yaml")))
     except IOError as err:
