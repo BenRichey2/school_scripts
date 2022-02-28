@@ -46,8 +46,8 @@ SYNTHETIC_FILES = ["synthetic-1.csv", "synthetic-2.csv"]
 REG_MODELS = {} # Contains theta values for each model
 ALPHAS = {}     # Contains alpha parameter for each model
 ALPHAS["wine"] = 0.001
-ALPHAS["synthetic-1.csv"] = 0.00000001
-ALPHAS["synthetic-2.csv"] = 0.00000001
+ALPHAS["synthetic-1.csv"] = 0.00001
+ALPHAS["synthetic-2.csv"] = 0.00001
 TIME_STEPS = 100000
 BENCHMARKS = {}
 BENCHMARKS["wine"] = 1.2
@@ -162,6 +162,24 @@ def mse(data, model):
         sum += (linear_reg(x_vals, model) - data["classification"][i]) ** 2
     return sum * (1 / m)
 
+def store_models(data_dir):
+    """
+        Store the trained theta parameters for each model to a yaml file on disk.
+        @param data_dir: the directory containing the data used for training/testing
+        @result: Stores a dictionary to a yaml file where the keys are the model names
+                 and the values are theta 0, theta 1, theta 2, ..., theta n.
+    """
+    # Convert np.ndarray objects to lists for writing to disk
+    for model in REG_MODELS.keys():
+        theta_vals = REG_MODELS[model].tolist()
+        REG_MODELS[model] = theta_vals
+    try:
+        with open(os.path.join(data_dir, "model_parameters.yaml"), "w+") as f:
+            yaml.dump(REG_MODELS, f)
+            print("Saved training parameters to {}".format(os.path.join(data_dir, "model_parameters.yaml")))
+    except IOError as err:
+        print("Error: unable to store training data to {}".format(os.path.join(data_dir, "model_parameters.yaml")))
+
 if __name__ == "__main__":
 
     try:
@@ -177,9 +195,4 @@ if __name__ == "__main__":
     # Randomly initialize theta vals
     REG_MODELS["wine"] =  np.asarray([np.random.rand() for theta in range(len(wine_data.keys()))])
     linear_gradient_descent(wine_data, "wine")
-    try:
-        with open(os.path.join(data_dir, "model_parameters.yaml"), "w+") as f:
-            yaml.dump(REG_MODELS, f)
-            print("Saved training parameters to {}".format(os.path.join(data_dir, "model_parameters.yaml")))
-    except IOError as err:
-        print("Error: unable to store training data to {}".format(os.path.join(data_dir, "model_parameters.yaml")))
+    store_models(data_dir)
