@@ -34,8 +34,8 @@ import os
 import csv
 import ast
 import numpy as np
-from tqdm import tqdm
 import yaml
+from progress.spinner import Spinner
 
 # Debugging
 import ipdb
@@ -134,12 +134,15 @@ def linear_gradient_descent(data, model):
         @result: Trains the given model TIME_STEPS times, storing the theta values
                  in REG_MODELS[model]. Uses full batch update for updating theta vals.
     """
-    for step in tqdm(range(TIME_STEPS), desc="Training {} model".format(model)):
+    wheel = Spinner("Training {} model: ".format(model))
+    for step in range(TIME_STEPS):
+        wheel.next()
         for j in range(len(REG_MODELS[model])):
             new_theta = REG_MODELS[model][j] - (ALPHAS[model] * lin_loss_pdwrtj(j, model, data))
             REG_MODELS[model][j] = new_theta
         if mse(data, model) < BENCHMARKS[model]:
-            print("MSE reached acceptable amount for {} model. Ending training.".format(model))
+            print("MSE reached {} for {} model. Ending training.".format(mse(data,model), model))
+            print("{} model's theta 0 through theta n values are: {}".format(model, REG_MODELS[model].tolist()))
             return
 
 def mse(data, model):
