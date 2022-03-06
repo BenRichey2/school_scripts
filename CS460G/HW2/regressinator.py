@@ -112,7 +112,7 @@ def store_models(data_dir):
     except IOError as err:
         print("Error: unable to store training data to {}".format(os.path.join(data_dir, "model_parameters.yaml")))
 
-def graph_synthetic_model(model, data, classifications):
+def graph_synthetic_model(model, data, classifications, order):
     """
         Generates a scatter plot with the regression model as the line of best fit using
         matplotlib.
@@ -120,18 +120,30 @@ def graph_synthetic_model(model, data, classifications):
         @param data: the pre-processed feature and classification data
         @param classifications: dictionary with only one element: 'classification' which is
                                 a list of class vals for each example
+        @param order: the order of the polynomial
     """
     x = data[:, 1]
     y = classifications["classification"]
     plt.scatter(x, y)
     y = []
-    for example in range(len(data[:, 1])):
-        y.append(regression(data[example], model))
+    x_data = {}
+    x_data["order_1"] = []
+    i = 0.0
+    while i < 1.0:
+        x_data["order_1"].append(i)
+        i += 0.0001
+    x_data["classification"] = []
+    expanded_x = basis_expansion(x_data, order)
+    x_matrix = convert_data_to_array(expanded_x)
+    for example in range(len(x_matrix[:, 1])):
+        y.append(regression(x_matrix[example], model))
     y = np.asarray(y)
-    plt.plot(x, y, color="red", label="Prediction")
+    x = x_matrix[:, 1]
+    plt.scatter(x, y, color="red", label="Prediction")
     plt.title(model)
     plt.xlabel("Feature 1")
     plt.ylabel("Classification")
+    plt.legend()
     plt.show()
 
 def preprocess_data(data):
@@ -294,7 +306,7 @@ def train_multiple_order_poly_models(data, model):
         curr_model = model + "_o{}".format(order)
         REG_MODELS[curr_model] = np.asarray([np.random.rand() for theta in range(order+1)])
         gradient_descent(order_data, matrix_data, curr_model)
-        graph_synthetic_model(curr_model, matrix_data, order_data)
+        graph_synthetic_model(curr_model, matrix_data, order_data, order)
 
 if __name__ == "__main__":
 
