@@ -120,6 +120,9 @@ def train_model(examples, classes, hidden_weights, output_weights):
         the a hidden layer node and the output layer node.
         @return: tuple containing trained (hidden_weights, output_weights) pair
     """
+    prev_acc = None
+    last_10_accs = []
+    divergence = False
     for epoch in range(TIME_STEPS):
         for i in range(len(examples)): # This is one epoch
             # Generate output at hidden layer
@@ -148,6 +151,25 @@ def train_model(examples, classes, hidden_weights, output_weights):
             hidden_weights = np.asarray(hidden_weights) # Convert back to numpy array
             if i % 1000 == 0:
                 accuracy = compute_accuracy(examples, classes, hidden_weights, output_weights)
+                # Check for divergence
+                if prev_acc:
+                    if prev_acc > accuracy:
+                        print("Divergence detected. Restarting training.")
+                        return "D"
+                prev_acc = accuracy
+                if len(last_10_accs) < 10:
+                    last_10_accs.append(accuracy)
+                else:
+                    last_10_accs.pop(0)
+                    last_10_accs.append(accuracy)
+                    for i in range(len(last_10_accs)):
+                        if last_10_accs[0] == last_10_accs[i]:
+                            divergence = True
+                        else:
+                            divergence = False
+                    if divergence:
+                        print("Divergence detected. Restarting training.")
+                        return "D"
                 print("Accuracy: {}%".format(round(accuracy, 2)))
                 if accuracy > BENCHMARK:
                     print("Training accuracy reached {}%. Ending Training.".format(round(accuracy, 2)))
@@ -198,6 +220,10 @@ if __name__ == "__main__":
     output_weights = np.asarray(np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES))
     # Begin training
     weights = train_model(training_examples, training_class, hidden_weights, output_weights)
+    while weights == "D":
+        hidden_weights = np.asarray(np.random.uniform(-1.0, 1.0, (NUM_HIDDEN_NODES, NUM_FEATURES)))
+        output_weights = np.asarray(np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES))
+        weights = train_model(training_examples, training_class, hidden_weights, output_weights)
     train_end = time.time()
     # Load in test data
     load_start = time.time()
