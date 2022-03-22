@@ -41,7 +41,7 @@ NUM_HIDDEN_NODES = 2
 NUM_FEATURES = 784
 ALPHA = 0.005
 TIME_STEPS = 100
-BENCHMARK = 95.0
+BENCHMARK = 99.0
 
 def load_file_data(data_dir, filename):
     """
@@ -107,7 +107,7 @@ def sig_prime(x):
     """
     return sigmoid(x) * (1 - sigmoid(x))
 
-def train_model(examples, classes, hidden_weights, output_weights):
+def train_model(examples, classes, hidden_weights, output_weights, hidden_bias, output_bias):
     """
         Trains feed forward neural network containing one hidden layer and a
         single node output layer
@@ -118,6 +118,8 @@ def train_model(examples, classes, hidden_weights, output_weights):
         hidden layer. Columns are weights for one feature for all hidden layer nodes.
         @param output_weights: Single numpy array where each element is the weight between
         the a hidden layer node and the output layer node.
+        @param hidden_bias: bias terms for hidden layer
+        @param output_bias: bias terms for output layer
         @return: tuple containing trained (hidden_weights, output_weights) pair
     """
     prev_acc = None
@@ -126,10 +128,10 @@ def train_model(examples, classes, hidden_weights, output_weights):
     for epoch in range(TIME_STEPS):
         for i in range(len(examples)): # This is one epoch
             # Generate output at hidden layer
-            hidden_input = np.dot(hidden_weights, examples[i]) # NUM_HIDDEN_NODES x 1
+            hidden_input = np.dot(hidden_weights, examples[i]) + hidden_bias # NUM_HIDDEN_NODES x 1
             hidden_output = np.asarray(list(map(sigmoid, hidden_input))) # NUM_HIDDEN_NODES x 1
             # Generate input to output layer
-            output_layer_input = np.dot(output_weights.transpose(), hidden_output) # scalar value
+            output_layer_input = np.dot(output_weights.transpose(), hidden_output) + output_bias # scalar value
             output = sigmoid(output_layer_input)
             # Calculate output error
             error = classes[i] - output
@@ -142,6 +144,7 @@ def train_model(examples, classes, hidden_weights, output_weights):
             output_weights = [output_weights[j] + (ALPHA * hidden_output[j] * output_delta)
                               for j in range(len(output_weights))]
             output_weights = np.asarray(output_weights) # Convert back to numpy array
+            output_bias = output_bias + (ALPHA * output_delta)
             old_hidden_weights = hidden_weights
             hidden_weights = []
             for node_idx in range(len(old_hidden_weights)):
@@ -149,8 +152,9 @@ def train_model(examples, classes, hidden_weights, output_weights):
                                                        (ALPHA * examples[i, j] * hidden_deltas[node_idx])
                                                        for j in range(NUM_FEATURES)])
             hidden_weights = np.asarray(hidden_weights) # Convert back to numpy array
+            hidden_bias = np.asarray([(hidden_bias[j] + (ALPHA * hidden_deltas[j])) for j in range(len(hidden_bias))])
             if i % 1000 == 0:
-                accuracy = compute_accuracy(examples, classes, hidden_weights, output_weights)
+                accuracy = compute_accuracy(examples, classes, hidden_weights, output_weights, hidden_bias, output_bias)
                 # Check for divergence
                 if prev_acc:
                     if prev_acc > accuracy:
@@ -173,18 +177,33 @@ def train_model(examples, classes, hidden_weights, output_weights):
                 print("Accuracy: {}%".format(round(accuracy, 2)))
                 if accuracy > BENCHMARK:
                     print("Training accuracy reached {}%. Ending Training.".format(round(accuracy, 2)))
-                    return (hidden_weights, output_weights)
+                    return (hidden_weights, output_weights, hidden_bias, output_bias)
     print("Completed {} epochs and was unable to reach benchmark. Stopping training.".format(TIME_STEPS))
     return None
 
-def compute_accuracy(examples, classes, hidden_weights, output_weights):
+def compute_accuracy(examples, classes, hidden_weights, output_weights, hidden_bias, output_bias):
+    """
+        Tests the accuracy of FFNN represented by one hidden layer containing two nodes and
+        one output layer contianing one node. This test is specific to the FFNN used to
+        classify MNIST images as either the handwritten number zero or one.
+        @param examples: Nested numpy array of training data where rows are feature values
+        for one example. Columns are feature values for one feature.
+        @param classes: Single numpy array of class values for each example
+        @param hidden_weights: Nested numpy array where rows are weights for one node of
+        hidden layer. Columns are weights for one feature for all hidden layer nodes.
+        @param output_weights: Single numpy array where each element is the weight between
+        the a hidden layer node and the output layer node.
+        @param hidden_bias: bias terms for hidden layer
+        @param output_bias: bias terms for output layer
+        @return: percent correctly predicted from given dataset
+    """
     num_correct = 0
     for i in range(len(examples)):
         # Generate output at hidden layer
-        hidden_input = np.dot(hidden_weights, examples[i]) # NUM_HIDDEN_NODES x 1
+        hidden_input = np.dot(hidden_weights, examples[i]) + hidden_bias # NUM_HIDDEN_NODES x 1
         hidden_output = np.asarray(list(map(sigmoid, hidden_input))) # NUM_HIDDEN_NODES x 1
         # Generate input to output layer
-        output_layer_input = np.dot(output_weights.transpose(), hidden_output) # scalar value
+        output_layer_input = np.dot(output_weights.transpose(), hidden_output) + output_bias # scalar value
         output = sigmoid(output_layer_input)
         if output > 0.5:
             prediction = 1
@@ -215,15 +234,22 @@ if __name__ == "__main__":
     training_examples = preprocess_data(training_examples)
     # Randomly initialize layer weights
     # NUM_HIDDEN_NODES x NUM_FEATURES
-    hidden_weights = np.asarray(np.random.uniform(-1.0, 1.0, (NUM_HIDDEN_NODES, NUM_FEATURES)))
+    hidden_weights = np.random.uniform(-1.0, 1.0, (NUM_HIDDEN_NODES, NUM_FEATURES))
+    # NUM_HIDDEN_NODES x 1
+    hidden_bias = np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES)
     # NUM_HIDDEN_NODES x 1 b/c we only want one output node
-    output_weights = np.asarray(np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES))
+    output_weights = np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES)
+    hidden_weights = np.random.uniform(-1.0, 1.0, (NUM_HIDDEN_NODES, NUM_FEATURES))
+    # scalar value b/c 1 output node
+    output_bias = np.random.uniform(-1.0, 1.0, 1)[0]
     # Begin training
-    weights = train_model(training_examples, training_class, hidden_weights, output_weights)
-    while weights == "D":
-        hidden_weights = np.asarray(np.random.uniform(-1.0, 1.0, (NUM_HIDDEN_NODES, NUM_FEATURES)))
-        output_weights = np.asarray(np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES))
-        weights = train_model(training_examples, training_class, hidden_weights, output_weights)
+    model = train_model(training_examples, training_class, hidden_weights, output_weights, hidden_bias, output_bias)
+    while model == "D":
+        hidden_weights = np.random.uniform(-1.0, 1.0, (NUM_HIDDEN_NODES, NUM_FEATURES))
+        hidden_bias = np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES)
+        output_weights = np.random.uniform(-1.0, 1.0, NUM_HIDDEN_NODES)
+        output_bias = np.random.uniform(-1.0, 1.0, 1)[0]
+        model = train_model(training_examples, training_class, hidden_weights, output_weights, hidden_bias, output_bias)
     train_end = time.time()
     # Load in test data
     load_start = time.time()
@@ -235,9 +261,11 @@ if __name__ == "__main__":
     # Preprocess feature data
     test_examples = preprocess_data(test_examples)
     # Test model
-    hidden_weights = weights[0]
-    output_weights = weights[1]
-    accuracy = compute_accuracy(test_examples, test_class, hidden_weights, output_weights)
+    hidden_weights = model[0]
+    output_weights = model[1]
+    hidden_bias = model[2]
+    output_bias = model[3]
+    accuracy = compute_accuracy(test_examples, test_class, hidden_weights, output_weights, hidden_bias, output_bias)
     print("Test accuracy: {}%".format(round(accuracy, 2)))
     end = time.time()
     print("The program took {}s to run.".format(round(end - start, 2)))
