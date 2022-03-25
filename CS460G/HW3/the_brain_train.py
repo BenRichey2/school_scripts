@@ -34,8 +34,6 @@ import math
 import time
 import numpy as np
 
-import ipdb
-
 DATA_FILES = ["mnist_test_0_1.csv", "mnist_train_0_1.csv"]
 NUM_HIDDEN_NODES = 2
 NUM_FEATURES = 784
