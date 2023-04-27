@@ -1,0 +1,16 @@
+INSERT INTO `Receipts` VALUES 
+1,'2023-02-15',11,'Meijer','351 Meijer Way 100 Lexington Kentucky 40503',NULL
+2,'2023-02-14',11,'Costco Wholesale','1500 Fitzgerald Court Lexington Kentucky 40509',NULL
+3,'2023-02-14',11,'Bandido Taqueria','535 S Upper St Lexington Kentucky 40508',NULL
+4,'2023-02-14',11,'Kroger','704 Euclid Avenue Lexington Kentucky 40502',NULL
+5,'2019-11-19',12,'Best Buy','3220 Nicholasville Rd Lexington Kentucky 40503',NULL
+6,'2023-02-16',12,'Chick-fil-A','2299 Richmond Rd Lexington Kentucky 40502',NULL
+7,'2023-02-14',12,'Kroger','704 Euclid Avenue Lexington Kentucky 40502',NULL
+8,'2022-07-22',12,'Macys','3301 Nicholasville Rd Lexington Kentucky 40503',NULL
+9,'2023-02-11',13,'Walmart','500 W New Circle Rd Lexington Kentucky 40511',NULL
+10,'2022-11-28',13,'Kroger','704 Euclid Avenue Lexington Kentucky 40502',NULL
+11,'2022-10-24',13,'Walmart','4051 Nicholasville Rd Lexington Kentucky 40503',NULL
+12,'2023-02-05',13,'Walmart','500 W New Circle Rd Lexington Kentucky 40511',NULL
+13,'2023-01-23',14,'Canes','544 S Upper St Lexington Kentucky 40508',NULL
+14,'2022-10-15',14,'Chipotle','345 South Limestone Lexington Kentucky 40508',NULL
+15,'2023-02-17',14,'Walmart','3735 Palomar Center Dr Lexington Kentucky 40502',NULL  

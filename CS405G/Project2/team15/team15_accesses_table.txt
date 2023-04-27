@@ -1,0 +1,10 @@
+INSERT INTO `accesses` VALUES 
+'deserts',37 ,
+'drinks',71 ,
+'for kids',20 ,
+'for pets',50 ,
+'inedible',31 ,
+'mains',67 ,
+'poisonous',42 ,
+'snacks',108 ,
+'takeout',40  

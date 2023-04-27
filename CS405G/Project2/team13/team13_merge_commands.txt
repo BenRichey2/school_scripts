@@ -1,0 +1,327 @@
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'Art Jones', '000000',
+	'2500 Alumni Dr Room 162, Lexington, Kentucky 40517',
+	'2500 Alumni Dr Room 162', 'Lexington', 'Kentucky', '40517',
+	'8599370921');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'Logan Ramsey', '000000',
+	'1772 Augusta Ct, Lexington, Kentucky 40505',
+	'1772 Augusta Ct', 'Lexington', 'Kentucky', '40505',
+	'8593749865');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'Isaac Abrams', '000000',
+	'1100 Eldemere Rd, Lexington, Kentucky 40502',
+	'1100 Eldemere Rd', 'Lexington', 'Kentucky', '40502',
+	'8591234567');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'Sawyer Allen', '000000',
+	'2044 Georgian Way Room 23, Lexington, Kentucky 40504',
+	'2044 Georgian Way Room 23', 'Lexington', 'Kentucky', '40504',
+	'8598906542');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Walmart',
+	'3735 Palomar Center Dr, Lexington, Kentucky 40513',
+	'3735 Palomar Center Dr', 'Lexington', 'Kentucky', '40513',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Papa Johns Pizza',
+	'265a Avenue of Champions, Lexington, Kentucky 40508',
+	'265a Avenue of Champions', 'Lexington', 'Kentucky', '40508',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Meijer',
+	'351 Meijer Way Room 100, Lexington, Kentucky 40503',
+	'351 Meijer Way Room 100', 'Lexington', 'Kentucky', '40503',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Walmart',
+	'500 W New Circle Rd, Lexington, Kentucky 40511',
+	'500 W New Circle Rd', 'Lexington', 'Kentucky', '40511',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Walmart',
+	'4051 Nicholasville Rd, Lexington, Kentucky 40503',
+	'4051 Nicholasville Rd', 'Lexington', 'Kentucky', '40503',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Best Buy',
+	'3220 Nicholasville Rd, Lexington, Kentucky 40503',
+	'3220 Nicholasville Rd', 'Lexington', 'Kentucky', '40503',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Chick-fil-A',
+	'2299 Richmond Rd, Lexington, Kentucky 40502',
+	'2299 Richmond Rd', 'Lexington', 'Kentucky', '40502',
+	'8593359856');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Macys',
+	'3301 Nicholasville Rd, Lexington, Kentucky 40503',
+	'3301 Nicholasville Rd', 'Lexington', 'Kentucky', '40503',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Costco Wholesale',
+	'1500 Fitzgerald Court, Lexington, Kentucky 40509',
+	'1500 Fitzgerald Court', 'Lexington', 'Kentucky', '40509',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Bandido Taqueria',
+	'535 S Upper St, Lexington, Kentucky 40508',
+	'535 S Upper St', 'Lexington', 'Kentucky', '40508',
+	'8593179721');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Canes',
+	'544 S Upper St, Lexington, Kentucky 40508',
+	'544 S Upper St', 'Lexington', 'Kentucky', '40508',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Blue & Co., LLC',
+	'250 W Main St Room 2900, Lexington, Kentucky 40507',
+	'250 W Main St Room 2900', 'Lexington', 'Kentucky', '40507',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Lexington Financial Center',
+	'250 West Main St Room 1400, Lexington, Kentucky 40507',
+	'250 West Main St Room 1400', 'Lexington', 'Kentucky', '40507',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Marr, Miller & Myers, PSC',
+	'500 Summit Drive, Corbin, Kentucky 47501',
+	'500 Summit Drive', 'Corbin', 'Kentucky', '47501',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'W.R. Ramsey & Associates, Inc',
+	'3201 Summit Square Place, Lexington, Kentucky 40509',
+	'3201 Summit Square Place', 'Lexington', 'Kentucky', '40509',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Barbara Baldwin CPA',
+	'2957 Four Pines Dr, Lexington, Kentucky 40502',
+	'2957 Four Pines Dr', 'Lexington', 'Kentucky', '40502',
+	'8593211008');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Innovative Accounting',
+	'710 E Main St, Lexington, Kentucky 40502',
+	'710 E Main St', 'Lexington', 'Kentucky', '40502',
+	'8597570535');
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'ATD Solutions LLC',
+	'2240 Executive Drive, Lexington, Kentucky 40505',
+	'2240 Executive Drive', 'Lexington', 'Kentucky', '40505',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Fusioncorp LLC',
+	'1406 N Forbes, Lexington, Kentucky 40511',
+	'1406 N Forbes', 'Lexington', 'Kentucky', '40511',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Groff Engineering & Consulting PLLC',
+	'306 Jonathan Ct, Lexington, Kentucky 40353',
+	'306 Jonathan Ct', 'Lexington', 'Kentucky', '40353',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Sutherland & Associates',
+	'331 S Mill St, Lexington, Kentucky 40508',
+	'331 S Mill St', 'Lexington', 'Kentucky', '40508',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Plumber NYC',
+	'1696 2nd Ave, New York, New York 10128',
+	'1696 2nd Ave', 'New York', 'New York', '10128',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Central Bank & Trust Co.',
+	'300 W Vine Street, Lexington, Kentucky 40507',
+	'300 W Vine Street', 'Lexington', 'Kentucky', '40507',
+	NULL);
+INSERT INTO CONTACT (entity_name, business_name, address, street_address, city, state, zip, phone_number) VALUES  (
+	'000000', 'Staples',
+	'2081 Harrodsburg Rd, Lexington, Kentucky 40504',
+	'2081 Harrodsburg Rd', 'Lexington', 'Kentucky', '40504',
+	NULL);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (53, 47, '2023-02-15', 1, 24.98, NULL, 24.98, 24.98);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (59, 47, '2023-02-14', 4, 41.66, NULL, 15.99, 4.69);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (60, 47, '2023-02-14', 9, 18.56, NULL, 1.99, 1.99);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (13, 47, '2023-02-14', 5, 28.04, NULL, 10.99, 1.79);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (56, 48, '2019-11-19', 1, 17.99, NULL, 16.99, 16.99);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (57, 48, '2023-02-16', 2, 5.87, NULL, 3.89, 1.65);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (13, 48, '2023-02-14', 5, 7.06, NULL, 2.99, 1.32);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (58, 48, '2022-07-22', 2, 32.71, NULL, 16.93, 13.93);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (54, 49, '2023-02-11', 17, 48.47, NULL, 5.48, 0.98);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (13, 49, '2022-11-28', 1, 3.69, NULL, 3.69, 3.69);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (55, 49, '2022-10-24', 22, 45.56, NULL, 6.04, 0.92);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (54, 49, '2023-02-05', 20, 79.31, NULL, 10.23, 1.32);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (61, 50, '2023-01-23', 1, 11.23, NULL, 10.99, 10.99);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (24, 50, '2022-10-15', 1, 8.43, NULL, 7.95, 7.95);
+INSERT INTO RECEIPT (supplier_id, consumer_id, date, quantity, total_sale, receipt_image, highest, lowest) VALUES (51, 50, '2023-02-17', 2, 6.56, NULL, 3.98, 2.58);
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 1;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 2;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 3;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 4;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 5;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 6;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 7;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 8;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 9;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 10;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 11;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 12;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 13;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 14;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 15;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 16;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 17;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 18;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 19;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 20;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 21;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 22;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 23;
+UPDATE CONTACT SET duplicate = TRUE WHERE id = 24;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 25;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 26;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 27;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 28;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 29;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 31;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 32;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 33;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 34;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 35;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 36;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 37;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 38;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 39;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 40;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 41;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 42;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 43;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 44;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 45;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 46;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 47;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 48;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 49;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 50;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 51;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 52;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 53;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 54;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 55;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 56;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 57;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 58;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 59;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 60;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 61;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 62;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 63;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 64;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 65;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 66;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 67;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 68;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 69;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 70;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 71;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 72;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 73;
+UPDATE CONTACT SET duplicate = FALSE WHERE id = 74;
+UPDATE CONTACT SET new = TRUE WHERE id = 1;
+UPDATE CONTACT SET new = TRUE WHERE id = 2;
+UPDATE CONTACT SET new = TRUE WHERE id = 3;
+UPDATE CONTACT SET new = TRUE WHERE id = 4;
+UPDATE CONTACT SET new = TRUE WHERE id = 5;
+UPDATE CONTACT SET new = TRUE WHERE id = 6;
+UPDATE CONTACT SET new = TRUE WHERE id = 7;
+UPDATE CONTACT SET new = TRUE WHERE id = 8;
+UPDATE CONTACT SET new = TRUE WHERE id = 9;
+UPDATE CONTACT SET new = TRUE WHERE id = 10;
+UPDATE CONTACT SET new = FALSE WHERE id = 11;
+UPDATE CONTACT SET new = FALSE WHERE id = 12;
+UPDATE CONTACT SET new = TRUE WHERE id = 13;
+UPDATE CONTACT SET new = FALSE WHERE id = 14;
+UPDATE CONTACT SET new = FALSE WHERE id = 15;
+UPDATE CONTACT SET new = FALSE WHERE id = 16;
+UPDATE CONTACT SET new = FALSE WHERE id = 17;
+UPDATE CONTACT SET new = FALSE WHERE id = 18;
+UPDATE CONTACT SET new = FALSE WHERE id = 19;
+UPDATE CONTACT SET new = FALSE WHERE id = 20;
+UPDATE CONTACT SET new = FALSE WHERE id = 21;
+UPDATE CONTACT SET new = FALSE WHERE id = 22;
+UPDATE CONTACT SET new = FALSE WHERE id = 23;
+UPDATE CONTACT SET new = TRUE WHERE id = 24;
+UPDATE CONTACT SET new = FALSE WHERE id = 25;
+UPDATE CONTACT SET new = FALSE WHERE id = 26;
+UPDATE CONTACT SET new = FALSE WHERE id = 27;
+UPDATE CONTACT SET new = FALSE WHERE id = 28;
+UPDATE CONTACT SET new = FALSE WHERE id = 29;
+UPDATE CONTACT SET new = FALSE WHERE id = 31;
+UPDATE CONTACT SET new = FALSE WHERE id = 32;
+UPDATE CONTACT SET new = FALSE WHERE id = 33;
+UPDATE CONTACT SET new = FALSE WHERE id = 34;
+UPDATE CONTACT SET new = FALSE WHERE id = 35;
+UPDATE CONTACT SET new = FALSE WHERE id = 36;
+UPDATE CONTACT SET new = FALSE WHERE id = 37;
+UPDATE CONTACT SET new = FALSE WHERE id = 38;
+UPDATE CONTACT SET new = FALSE WHERE id = 39;
+UPDATE CONTACT SET new = FALSE WHERE id = 40;
+UPDATE CONTACT SET new = FALSE WHERE id = 41;
+UPDATE CONTACT SET new = FALSE WHERE id = 42;
+UPDATE CONTACT SET new = FALSE WHERE id = 43;
+UPDATE CONTACT SET new = FALSE WHERE id = 44;
+UPDATE CONTACT SET new = FALSE WHERE id = 45;
+UPDATE CONTACT SET new = FALSE WHERE id = 46;
+UPDATE CONTACT SET new = TRUE WHERE id = 47;
+UPDATE CONTACT SET new = TRUE WHERE id = 48;
+UPDATE CONTACT SET new = TRUE WHERE id = 49;
+UPDATE CONTACT SET new = TRUE WHERE id = 50;
+UPDATE CONTACT SET new = TRUE WHERE id = 51;
+UPDATE CONTACT SET new = TRUE WHERE id = 52;
+UPDATE CONTACT SET new = TRUE WHERE id = 53;
+UPDATE CONTACT SET new = TRUE WHERE id = 54;
+UPDATE CONTACT SET new = TRUE WHERE id = 55;
+UPDATE CONTACT SET new = TRUE WHERE id = 56;
+UPDATE CONTACT SET new = TRUE WHERE id = 57;
+UPDATE CONTACT SET new = TRUE WHERE id = 58;
+UPDATE CONTACT SET new = TRUE WHERE id = 59;
+UPDATE CONTACT SET new = TRUE WHERE id = 60;
+UPDATE CONTACT SET new = TRUE WHERE id = 61;
+UPDATE CONTACT SET new = TRUE WHERE id = 62;
+UPDATE CONTACT SET new = TRUE WHERE id = 63;
+UPDATE CONTACT SET new = TRUE WHERE id = 64;
+UPDATE CONTACT SET new = TRUE WHERE id = 65;
+UPDATE CONTACT SET new = TRUE WHERE id = 66;
+UPDATE CONTACT SET new = TRUE WHERE id = 67;
+UPDATE CONTACT SET new = TRUE WHERE id = 68;
+UPDATE CONTACT SET new = TRUE WHERE id = 69;
+UPDATE CONTACT SET new = TRUE WHERE id = 70;
+UPDATE CONTACT SET new = TRUE WHERE id = 71;
+UPDATE CONTACT SET new = TRUE WHERE id = 72;
+UPDATE CONTACT SET new = TRUE WHERE id = 73;
+UPDATE CONTACT SET new = TRUE WHERE id = 74;
+UPDATE CONTACT SET contact_preference = "DNC" WHERE id = 1
+UPDATE CONTACT SET contact_preference = "DNC" WHERE id = 2
+UPDATE CONTACT SET contact_preference = "ROBOCALL" WHERE id = 3
+UPDATE CONTACT SET contact_preference = "EMAILROBOCALL" WHERE id = 4
+UPDATE CONTACT SET contact_preference = "MAIL" WHERE id = 5
+UPDATE CONTACT SET contact_preference = "TEXT" WHERE id = 6
+UPDATE CONTACT SET contact_preference = "TEXT" WHERE id = 7
+UPDATE CONTACT SET contact_preference = "ALL" WHERE id = 8
+UPDATE CONTACT SET contact_preference = "TEXT" WHERE id = 9
+UPDATE CONTACT SET contact_preference = "TEXT" WHERE id = 10
+UPDATE CONTACT SET contact_preference = "TEXT" WHERE id = 12
+UPDATE CONTACT SET contact_preference = "TEXT" WHERE id = 31
+UPDATE CONTACT SET contact_preference = "ALL" WHERE id = 37
+UPDATE CONTACT SET contact_preference = "ALL" WHERE id = 38
+UPDATE CONTACT SET contact_preference = "EMAIL" WHERE id = 39
+UPDATE CONTACT SET contact_preference = "EMAIL" WHERE id = 40
+UPDATE CONTACT SET contact_preference = "EMAIL" WHERE id = 41
+UPDATE CONTACT SET contact_preference = "DNC" WHERE id = 42
+UPDATE CONTACT SET contact_preference = "ROBOCALL" WHERE id = 43
+UPDATE CONTACT SET contact_preference = "FAX" WHERE id = 44
+UPDATE CONTACT SET contact_preference = "DNC" WHERE id = 45
+UPDATE CONTACT SET contact_preference = "MAIL" WHERE id = 46
+UPDATE CONTACT SET contact_preference = "ALL" WHERE id = 47
+UPDATE CONTACT SET contact_preference = "EMAIL" WHERE id = 48
+UPDATE CONTACT SET contact_preference = "ROBOCALL" WHERE id = 49
+UPDATE CONTACT SET contact_preference = "FAX" WHERE id = 50

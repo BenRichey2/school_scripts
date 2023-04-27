@@ -1,0 +1,46 @@
+INSERT INTO `CONTACT` VALUES 
+1,'Mr. Ray L. Hyatt Jr','000000','300 Rose Street Room 102 Hardymon Building Lexington, Kentucky 40506','300 Rose Street Room 102 Hardymon Building','Lexington','KY','40506',NULL
+2,'Mr. Ray L. Hyatt Jr','000000','301 Hilltop Avenue, Room 102 Lexington, Ky 40506','301 Hilltop Avenue Room 102','Lexington','KY','40506',NULL
+3,'John Wick','000000','82 Beaver St Room 1301 New York, New York 10005','82 Beaver St Room 1301','New York','NY','10005','555-555-5555'
+4,'Tony Stark','000000','200 Park Avenue Penthouse New York, New York 10001','200 Park Avenue','New York','NY','10001','555-555-3142'
+5,'Dr. Stephen Strange','000000','117A Bleecker Street New York, New York 10001','117A Bleecker Street','New York','NY','10001','(555)555-4321'
+6,'Bob Porter','Intech','1 Dead End Row Room 200 Dallas, TX 12347','1 Dead End Row Room 200','Dallas','TX','12347',NULL
+7,'Bob C. Smith','000000','200 Park Avenue Apartment 221 New York, NY 10001','200 Park Avenue Apartment 221','New York','NY','10001',NULL
+8,'Bowman F. Wildcat','000000','#1 Avenue of Champions Lexington, Ky 40506','#1 Avenue of Champions','Lexington','KY','40506',NULL
+9,'Bob C. Smith','000000','200 Park Avenue Lexington, KY 40507','200 Park Avenue','Lexington','KY','40507',NULL
+10,'Mr. Bob Sydell','Intech','1 Dead End Row Room 200 Dallas, TX 12347','1 Dead End Row Room 200','Dallas','TX','12347',NULL
+11,'000000','Kroger','106 Market Place Circle, Georgetown, KY 40324','106 Market Place Circle','Georgetown','KY','40324','859-420-6969'
+12,'Ben Richey','000000','123 New Circle Rd, Lexington, KY 40508','123 New Circle Rd','Lexington','KY','40508','859-676-4969'
+13,'000000','Kroger','704 Euclid Ave, Lexington, KY 40502','704 Euclid Ave','Lexington','KY','40502','859-678-7564'
+14,'000000','Dollar Tree','3101 Clays Mill Road, Lexington, KY 40503','3101 Clays Mill Road','Lexington','KY','40503','859-098-2435'
+15,'000000','Target','500 S Upper St, Lexington, KY 40508','500 S Upper St','Lexington','KY','40508','859-490-5867'
+16,'000000','Target','131 West Reynolds Rd, Lexington, KY 40503','131 West Reynolds Rd','Lexington','KY','40503','859-345-6789'
+17,'000000','McDonalds','3765 Palomar Centre Dr, Lexington, KY 40513','3765 Palomar Centre Dr','Lexington','KY','40513','859-223-8811'
+18,'000000','Slainte Public House','320 E Main St, Georgetown, KY 40324','320 E Main St','Georgetown','KY','40324','502-642-4631'
+19,'000000','Shaker Village of Pleasant Hill','3501 Lexington Road, Harrodsburg, KY 40330','3501 Lexington Road','Harrodsburg','KY','40330','859-123-0987'
+20,'000000','Schwabs Pipes N Stuff','245 Southland Dr, Lexington, KY 40503','245 Southland Dr','Lexington','KY','40503','859-266-1011'
+21,'000000','Nike by Lexington','4084 Finn Way, Lexington, KY 40517','4084 Finn Way','Lexington','KY','40517','859-309-6346'
+22,'000000','Kroger','3040 Dolphin Dr, Elizabethtown, KY 42701','3040 Dolphin Dr','Elizabethtown','KY','42701','859-102-9384'
+23,'000000','Buffalo Wild Wings','1511 Ring Rd Ste 106, Elizabethtown, KY 42701','1511 Ring Rd Ste 106','Elizabethtown','KY','42701','859-453-6271'
+24,'000000','Chipotle','345 S Limestone, Lexington, KY 40508','345 S Limestone','Lexington','KY','40508','859-389-6643'
+25,'000000','Subway','Margaret I King Library, 410 Administration Dr., Lexington, KY 40506','Margaret I King Library, 410 Administration Dr.','Lexington','KY','40506','859-079-8365'
+26,'000000','Chick-fil-A','239 Student Ctr, UK Student Center, Lexington, KY 40508','239 Student Ctr, UK Student Center','Lexington','KY','40508','859-218-6726'
+27,'000000','Ticketmaster','9348 Civic Center Drive, Beverly Hills, CA, 90210','9348 Civic Center Drive','Beverly Hills','CA','90210','859-666-0666'
+28,'000000','Crocs','3401 Nicholasville Rd, Lexington, Ky 40503','3401 Nicholasville Rd','Lexington','KY','40503','859-752-0398'
+29,'000000','McDonalds','357 S Limestone, Lexington, KY 40508','357 S Limestone','Lexington','KY','40508','859-567-9624'
+31,'Gavin','000000','521 S Broadway, The Lex Apartments, Lexington, Kentucky, 40508','521 S Broadway, The Lex Apartments','Lexington','KY','40508','859-253-5936'
+32,'000000','Coliseum Liquors','379 Rose Street, Lexington, KY 40508','379 Rose Street','Lexington','KY','40508','859-252-8831'
+33,'000000','Bodega','140 Mason Street, San Francisco, CA 94102','140 Mason Street','San Francisco','CA','94102','415-655-9341'
+34,'000000','Marti & Liz','150 West Lowry Lane, Lexington, KY 40503','150 West Lowry Lane','Lexington','KY','40503','859-523-6477'
+35,'000000','Sephora','3401 Nicholasville Road, Lexington, KY 40503','3401 Nicholasville Road','Lexington','KY','40503','859-245-0601'
+36,'000000','The Fresh Market','3387 Tates Creek Road, Lexington, KY 40517','3387 Tates Creek Road','Lexington','KY','40517','859-266-0150'
+37,'Adam Smith','000000','1603 East New Circle Road, Lexington, KY 40505','1603 East New Circle Road','Lexington','KY','40505','777-888-9999'
+38,'Layla Bell','000000','413 West Vine Street, Lexington, KY 40507','413 West Vine Street','Lexington','KY','40507','444-555-6666'
+39,'Samantha Wells','000000','2121 Nicholasville Road, Lexington, KY 40503','2121 Nicholasville Road','Lexington','KY','40503','111-222-3333'
+40,'Brandon Sims','000000','168 West Main Street, Lexington, KY 40508','168 West Main Street','Lexington','KY','40508','555-444-3333'
+41,'Tofunmi Oyetan','000000','320 North Martin Luther King Boulevard, Lexington, KY 40506','320 South Martin Luther King Boulevard','Lexington','KY','40506','485-998-2395'
+42,'John C. Na','000000','203 Whoischamp Lexington, KY 40502','203 Whoischamp','Lexington','KY','40502','000-372-6897'
+43,'Chris P. Bacon','000000','100 Real Pork Ave. Lexington, KY 40502','100 Real Pork Ave.','Lexington','KY','40502','234-001-0003'
+44,'Dwayne Johnson','000000','454 Underock Lexington, KY 40506','454 Underock','Lexington','KY','40506','696-969-6969'
+45,'Saitama','000000','671 Not Japan Lexington, KY 40503','454 Underock','Lexington','KY','40503','777-777-5555'
+46,'Bruce Wayne','Wayne Tech','343 Crime Ave., Gotham, KY 40523','343 Crime Ave.','Gotham','KY','40523','371-444-2948'
